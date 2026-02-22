@@ -1,0 +1,47 @@
+package com.example.kmptemplate.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
+import androidx.savedstate.serialization.SavedStateConfiguration
+import com.example.kmptemplate.feature.animation.ui.AnimationScreen
+import com.example.kmptemplate.feature.home.ui.HomeScreen
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+
+@Composable
+fun Navigation(modifier: Modifier) {
+    val backStack = rememberNavBackStack(
+        configuration = SavedStateConfiguration {
+            serializersModule = SerializersModule {
+                polymorphic(NavKey::class) {
+                    subclass(Screens.Home::class, Screens.Home.serializer())
+                    subclass(Screens.Animation::class, Screens.Animation.serializer())
+                }
+            }
+        }, Screens.Home
+    )
+
+    NavDisplay(
+        modifier = modifier,
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        entryProvider = entryProvider {
+            entry<Screens.Home> {
+                HomeScreen(onAnimationClick = { backStack.add(Screens.Animation) })
+            }
+            entry<Screens.Animation> {
+                AnimationScreen()
+            }
+        }
+    )
+}
