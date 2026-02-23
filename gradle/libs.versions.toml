@@ -7,6 +7,8 @@ androidx-activity = "1.12.4"
 androidx-lifecycle = "2.9.6"
 composeHotReload = "1.0.0"
 composeMultiplatform = "1.10.1"
+koinBom = "4.2.0-RC1"
+koin-plugin = "0.3.0"
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
 kotlinxSerializationJson = "1.10.0"
@@ -26,6 +28,11 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+koin-annotations = { module = "io.insert-koin:koin-annotations" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "nav3-ui" }
@@ -40,3 +47,4 @@ composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "com
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+koin = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }

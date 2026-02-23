@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.koin)
 }
 
 kotlin {
@@ -70,6 +71,13 @@ kotlin {
         // Navigation3
         implementation(libs.navigation3.ui)
         implementation(libs.navigation3.viewmodel)
+
+        // Koin
+        implementation(platform(libs.koin.bom))
+        implementation(libs.koin.compose)
+        implementation(libs.koin.compose.viewmodel)
+        implementation(libs.koin.compose.viewmodel.navigation)
+        implementation(libs.koin.annotations)
     }
 }
 
