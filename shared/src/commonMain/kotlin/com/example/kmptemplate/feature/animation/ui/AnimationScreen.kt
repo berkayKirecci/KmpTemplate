@@ -1,9 +1,9 @@
 package com.example.kmptemplate.feature.animation.ui
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun AnimationScreen(viewmodel: AnimationViewmodel = viewModel()) {
+fun AnimationScreen(viewmodel: AnimationViewmodel = koinViewModel()) {
 
 }

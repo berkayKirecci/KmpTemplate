@@ -43,6 +43,5 @@ kotlin {
         implementation(projects.shared)
         implementation(libs.androidx.activity.compose)
         implementation(libs.compose.uiToolingPreview)
-        implementation(libs.koin.android)
     }
 }

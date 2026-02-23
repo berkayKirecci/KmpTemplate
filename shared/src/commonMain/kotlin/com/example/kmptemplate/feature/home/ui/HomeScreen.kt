@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HomeScreen(
     onAnimationClick: () -> Unit,
-    viewmodel: HomeViewmodel = viewModel()
+    viewmodel: HomeViewmodel = koinViewModel()
 ) {
     Column {
         Button(onClick = onAnimationClick) {

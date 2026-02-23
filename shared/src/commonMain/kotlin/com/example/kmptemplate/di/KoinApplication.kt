@@ -1,20 +1,18 @@
 package com.example.kmptemplate.di
 
-import androidx.compose.runtime.Composable
-import org.koin.compose.KoinApplication
-import org.koin.dsl.KoinAppDeclaration
-import org.koin.dsl.koinConfiguration
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Configuration
+import org.koin.core.annotation.KoinApplication
+import org.koin.core.annotation.Module
 
-@Composable
-fun InitKoinApplication(
-    koinAppDeclaration: KoinAppDeclaration?,
-    content: @Composable (() -> Unit)
-) {
-    KoinApplication(
-        configuration = koinConfiguration(declaration = {
-            koinAppDeclaration?.invoke(this)
-            modules()
-        }),
-        content = content
-    )
-}
+
+@Module(includes = [ViewModelModule::class])
+@Configuration
+class AppModule
+
+@ComponentScan("com.example.kmptemplate")
+@Module
+class ViewModelModule
+
+@KoinApplication
+object KoinApplication
