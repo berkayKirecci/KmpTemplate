@@ -1,10 +1,9 @@
 package com.example.kmptemplate.feature.home.ui
 
 import androidx.lifecycle.ViewModel
-import org.koin.core.annotation.KoinViewModel
+import com.example.kmptemplate.platform.DataStore
 
-@KoinViewModel
-class HomeViewmodel : ViewModel() {
+class HomeViewmodel(private val storage: DataStore) : ViewModel() {
 
     override fun onCleared() {
         println("HomeViewmodel.onCleared")

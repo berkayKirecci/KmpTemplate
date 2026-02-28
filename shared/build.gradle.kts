@@ -1,5 +1,5 @@
+
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -28,6 +28,11 @@ kotlin {
             isIncludeAndroidResources = true
         }
     }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -39,17 +44,6 @@ kotlin {
     }
 
     jvm()
-
-    js {
-        browser()
-        binaries.executable()
-    }
-
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
@@ -78,6 +72,10 @@ kotlin {
         implementation(libs.koin.compose.viewmodel)
         implementation(libs.koin.compose.viewmodel.navigation)
         implementation(libs.koin.annotations)
+
+        // Datastore
+        implementation(libs.androidx.datastore)
+        implementation(libs.androidx.datastore.preferences)
     }
 }
 
