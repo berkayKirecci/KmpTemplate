@@ -9,5 +9,5 @@ sealed class Screens : NavKey {
     data object Home : Screens()
 
     @Serializable
-    data object Animation : Screens()
+    data object Post : Screens()
 }

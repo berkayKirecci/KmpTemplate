@@ -12,8 +12,8 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import com.example.kmptemplate.feature.animation.ui.AnimationScreen
 import com.example.kmptemplate.feature.home.ui.HomeScreen
+import com.example.kmptemplate.feature.post.ui.PostScreen
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
@@ -24,10 +24,10 @@ fun Navigation(modifier: Modifier) {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
                     subclass(Screens.Home::class, Screens.Home.serializer())
-                    subclass(Screens.Animation::class, Screens.Animation.serializer())
+                    subclass(Screens.Post::class, Screens.Post.serializer())
                 }
             }
-        }, Screens.Home
+        }, Screens.Post
     )
 
     NavDisplay(
@@ -40,10 +40,10 @@ fun Navigation(modifier: Modifier) {
         ),
         entryProvider = entryProvider {
             entry<Screens.Home> {
-                HomeScreen(onAnimationClick = { backStack.add(Screens.Animation) })
+                HomeScreen()
             }
-            entry<Screens.Animation> {
-                AnimationScreen()
+            entry<Screens.Post> {
+                PostScreen()
             }
         },
         transitionSpec = {

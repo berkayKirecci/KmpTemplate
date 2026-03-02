@@ -1,4 +1,3 @@
-
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -30,7 +29,7 @@ kotlin {
     }
 
     compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
+        freeCompilerArgs.addAll("-Xexpect-actual-classes", "-Xexplicit-backing-fields")
     }
 
     listOf(
@@ -76,6 +75,12 @@ kotlin {
         // Datastore
         implementation(libs.androidx.datastore)
         implementation(libs.androidx.datastore.preferences)
+
+        // Ktor
+        implementation(libs.ktor.client.core)
+        implementation(libs.ktor.client.content.negotiation)
+        implementation(libs.ktor.serialization.kotlinx.json)
+        implementation(libs.ktor.client.logging)
     }
 }
 
