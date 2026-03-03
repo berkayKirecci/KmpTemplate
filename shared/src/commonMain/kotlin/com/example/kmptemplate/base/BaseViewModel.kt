@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -24,16 +25,15 @@ open class BaseViewModel : ViewModel() {
         uiEvent.emit(event)
     }
 
-    suspend fun <T : BaseResponse> Flow<Result<T>>.safeCollect(onSuccess: T.() -> Unit) {
+    suspend fun <T : BaseResponse> Flow<T>.safeCollect(onSuccess: T.() -> Unit) {
         this.onStart { loadingState.value = true }
-            .collectLatest { result ->
+            .catch {
                 loadingState.value = false
-                result.fold(
-                    onSuccess = { onSuccess(it) },
-                    onFailure = {
-                        emitEvent(BaseUiEvent.ShowError(it.message.orEmpty()))
-                    }
-                )
+                emitEvent(BaseUiEvent.ShowError(it.message.orEmpty()))
+            }
+            .collectLatest {
+                loadingState.value = false
+                onSuccess(it)
             }
     }
 }

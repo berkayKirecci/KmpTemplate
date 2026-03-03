@@ -12,19 +12,19 @@ import kotlinx.coroutines.flow.flowOn
 
 inline fun <reified T : BaseResponse> safeFlowRequest(
     crossinline suspendCall: suspend () -> HttpResponse
-): Flow<Result<T>> = flow {
+): Flow<T> = flow {
     val httpResponse = suspendCall()
     val statusCode = httpResponse.status.value
     val body = httpResponse.body<T>()
     if (statusCode in 200..299) {
         if (body.isError == true) {
-            emit(Result.failure(Exception(body.errorMessage ?: "Bilinmeyen Bir Hata Oluştu")))
+            throw Exception(body.errorMessage ?: "Bilinmeyen Bir Hata Oluştu")
         } else {
-            emit(Result.success(httpResponse.body<T>()))
+            emit(body)
         }
     } else {
-        emit(Result.failure(Exception(body.errorMessage ?: "Bilinmeyen Bir Hata Oluştu")))
+        throw Exception(body.errorMessage ?: "Bilinmeyen Bir Hata Oluştu")
     }
-}.catch { throwable ->
-    emit(Result.failure(Exception("Bağlantınızda Bir Sorun Oluştu")))
+}.catch { _ ->
+    throw Exception("Bağlantınızda Bir Sorun Oluştu")
 }.flowOn(Dispatchers.IO)
