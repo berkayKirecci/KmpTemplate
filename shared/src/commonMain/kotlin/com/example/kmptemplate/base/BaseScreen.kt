@@ -14,6 +14,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import state.rememberSnackbarState
+import ui.MultiPlatformSnackbar
 
 @Composable
 fun BaseScreen(
@@ -22,11 +24,13 @@ fun BaseScreen(
 ) {
     val loadingState by viewModel.loadingState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val snackbarState = rememberSnackbarState()
+
     LaunchedEffect(viewModel.uiEvent, lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.uiEvent.collect { event ->
                 when (event) {
-                    is BaseUiEvent.ShowError -> Unit
+                    is BaseUiEvent.ShowError -> snackbarState.error(event.errorMessage)
                 }
             }
         }
@@ -38,6 +42,7 @@ fun BaseScreen(
     ) {
         CircularProgressIndicator()
     }
+    MultiPlatformSnackbar(state = snackbarState)
 
     Column(modifier = Modifier.fillMaxSize()) {
         content()
