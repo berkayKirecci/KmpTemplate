@@ -4,5 +4,5 @@ import com.example.kmptemplate.feature.post.data.response.PostListResponse
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
-    fun getPosts(): Flow<PostListResponse>
+    fun getPosts(): Flow<Result<PostListResponse>>
 }

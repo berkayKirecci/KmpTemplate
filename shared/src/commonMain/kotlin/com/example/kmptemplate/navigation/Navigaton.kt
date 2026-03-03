@@ -27,7 +27,7 @@ fun Navigation(modifier: Modifier) {
                     subclass(Screens.Post::class, Screens.Post.serializer())
                 }
             }
-        }, Screens.Post
+        }, Screens.Home
     )
 
     NavDisplay(

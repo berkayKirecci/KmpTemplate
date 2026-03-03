@@ -2,6 +2,7 @@ package com.example.kmptemplate.network
 
 import com.example.kmptemplate.network.model.BaseRequest
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -40,6 +41,12 @@ private fun createHttpClient() = HttpClient {
             takeFrom("https://dummyjson.com/")
             protocol = URLProtocol.HTTPS
         }
+    }
+
+    install(HttpTimeout) {
+        requestTimeoutMillis = 15_000
+        connectTimeoutMillis = 10_000
+        socketTimeoutMillis = 15_000
     }
 
     install(ContentNegotiation) {

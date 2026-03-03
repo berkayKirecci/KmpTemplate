@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 class GetPostsUseCase(private val postRepository: PostRepository) {
 
-    operator fun invoke(): Flow<PostListResponse> = postRepository.getPosts()
+    operator fun invoke(): Flow<Result<PostListResponse>> = postRepository.getPosts()
 }
