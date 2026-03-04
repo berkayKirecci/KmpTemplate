@@ -2,7 +2,6 @@ package com.example.kmptemplate.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmptemplate.network.model.BaseResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +24,7 @@ open class BaseViewModel : ViewModel() {
         uiEvent.emit(event)
     }
 
-    suspend fun <T : BaseResponse> Flow<T>.safeCollect(onSuccess: T.() -> Unit) {
+    suspend fun <T> Flow<T>.safeCollect(onSuccess: T.() -> Unit) {
         this.onStart { loadingState.value = true }
             .catch {
                 loadingState.value = false

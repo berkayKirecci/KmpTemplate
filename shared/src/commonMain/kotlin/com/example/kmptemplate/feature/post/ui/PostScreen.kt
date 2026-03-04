@@ -17,7 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kmptemplate.base.BaseScreen
-import com.example.kmptemplate.feature.post.data.response.PostResponse
+import com.example.kmptemplate.feature.post.domain.model.Post
+import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -29,31 +30,31 @@ fun PostScreen(viewModel: PostViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun PostList(posts: List<PostResponse>, modifier: Modifier = Modifier) {
+private fun PostList(posts: ImmutableList<Post>, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(items = posts, key = { it.id ?: 0 }) { post ->
+        items(items = posts, key = { it.id }) { post ->
             PostItem(post = post)
         }
     }
 }
 
 @Composable
-private fun PostItem(post: PostResponse, modifier: Modifier = Modifier) {
-    Card(modifier = modifier.fillMaxWidth()) {
+private fun PostItem(post: Post) {
+    Card(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
-                text = post.title.orEmpty(),
+                text = post.title,
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(
-                text = post.body.orEmpty(),
+                text = post.body,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

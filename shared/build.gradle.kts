@@ -82,6 +82,9 @@ kotlin {
         implementation(libs.ktor.serialization.kotlinx.json)
         implementation(libs.ktor.client.logging)
 
+        // Collections
+        implementation(libs.kotlinx.collections.immutable)
+
         // Snackbar
         implementation(libs.crossmessages)
     }
