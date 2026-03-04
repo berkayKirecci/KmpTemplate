@@ -30,9 +30,9 @@ fun PostScreen(viewModel: PostViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun PostList(posts: ImmutableList<Post>, modifier: Modifier = Modifier) {
+private fun PostList(posts: ImmutableList<Post>) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
