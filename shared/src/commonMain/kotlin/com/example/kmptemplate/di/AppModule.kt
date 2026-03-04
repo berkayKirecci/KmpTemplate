@@ -1,8 +1,8 @@
 package com.example.kmptemplate.di
 
 import com.example.kmptemplate.feature.home.ui.HomeViewmodel
-import com.example.kmptemplate.feature.post.data.repository.PostRepository
 import com.example.kmptemplate.feature.post.data.repository.PostRepositoryImpl
+import com.example.kmptemplate.feature.post.domain.repository.PostRepository
 import com.example.kmptemplate.feature.post.domain.usecase.GetPostsUseCase
 import com.example.kmptemplate.feature.post.ui.PostViewModel
 import com.example.kmptemplate.network.networkModule
