@@ -19,16 +19,15 @@ import ui.MultiPlatformSnackbar
 
 @Composable
 fun BaseScreen(
-    networkHelper: NetworkHelper = NetworkHelperDelegate(),
+    uiEventHelper: UiEventHelper,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val loadingState by networkHelper.loadingState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarState = rememberSnackbarState()
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            networkHelper.uiEvent.collect { event ->
+            uiEventHelper.uiEvent.collect { event ->
                 when (event) {
                     is BaseUiEvent.ShowError -> snackbarState.error(event.errorMessage)
                 }
@@ -36,15 +35,27 @@ fun BaseScreen(
         }
     }
 
-    if (loadingState) Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
     MultiPlatformSnackbar(state = snackbarState)
 
     Column(modifier = Modifier.fillMaxSize()) {
+        content()
+    }
+}
+
+@Composable
+fun BaseScreen(
+    networkHelper: NetworkHelper,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    val loadingState by networkHelper.loadingState.collectAsStateWithLifecycle()
+
+    BaseScreen(uiEventHelper = networkHelper) {
+        if (loadingState) Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
         content()
     }
 }

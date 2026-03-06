@@ -23,8 +23,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun PostScreen(viewModel: PostViewModel = koinViewModel()) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     BaseScreen(viewModel) {
-        val state by viewModel.state.collectAsStateWithLifecycle()
         PostList(state.posts)
     }
 }
