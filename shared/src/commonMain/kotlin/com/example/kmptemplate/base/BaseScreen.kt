@@ -19,16 +19,16 @@ import ui.MultiPlatformSnackbar
 
 @Composable
 fun BaseScreen(
-    viewModel: BaseViewModel,
+    networkHelper: NetworkHelper = NetworkHelperDelegate(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val loadingState by viewModel.loadingState.collectAsStateWithLifecycle()
+    val loadingState by networkHelper.loadingState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val snackbarState = rememberSnackbarState()
 
-    LaunchedEffect(viewModel.uiEvent, lifecycleOwner) {
+    LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.uiEvent.collect { event ->
+            networkHelper.uiEvent.collect { event ->
                 when (event) {
                     is BaseUiEvent.ShowError -> snackbarState.error(event.errorMessage)
                 }

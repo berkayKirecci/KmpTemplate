@@ -1,30 +1,20 @@
 package com.example.kmptemplate.base
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 
-open class BaseViewModel : ViewModel() {
+class NetworkHelperDelegate(
+    uiEventHelper: UiEventHelper = UiEventHelperDelegate(),
+) : NetworkHelper, UiEventHelper by uiEventHelper {
 
-    val loadingState: StateFlow<Boolean>
+    final override val loadingState: StateFlow<Boolean>
         field = MutableStateFlow(false)
 
-    val uiEvent: SharedFlow<BaseUiEvent>
-        field = MutableSharedFlow()
-
-    fun emitEvent(event: BaseUiEvent) = viewModelScope.launch {
-        uiEvent.emit(event)
-    }
-
-    suspend fun <T> Flow<T>.safeCollect(onSuccess: T.() -> Unit) {
+    override suspend fun <T> Flow<T>.safeCollect(onSuccess: T.() -> Unit) {
         this.onStart { loadingState.value = true }
             .catch {
                 loadingState.value = false
