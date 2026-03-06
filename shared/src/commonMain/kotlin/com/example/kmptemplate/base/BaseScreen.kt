@@ -19,6 +19,24 @@ import ui.MultiPlatformSnackbar
 
 @Composable
 fun BaseScreen(
+    networkHelper: NetworkHelper,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    val loadingState by networkHelper.loadingState.collectAsStateWithLifecycle()
+
+    BaseScreen(uiEventHelper = networkHelper) {
+        if (loadingState) Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        content()
+    }
+}
+
+@Composable
+fun BaseScreen(
     uiEventHelper: UiEventHelper,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -38,24 +56,6 @@ fun BaseScreen(
     MultiPlatformSnackbar(state = snackbarState)
 
     Column(modifier = Modifier.fillMaxSize()) {
-        content()
-    }
-}
-
-@Composable
-fun BaseScreen(
-    networkHelper: NetworkHelper,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    val loadingState by networkHelper.loadingState.collectAsStateWithLifecycle()
-
-    BaseScreen(uiEventHelper = networkHelper) {
-        if (loadingState) Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
         content()
     }
 }
