@@ -8,15 +8,14 @@ import com.example.kmptemplate.feature.post.domain.usecase.GetPostsUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PostViewModel(private val getPosts: GetPostsUseCase) : ViewModel(),
     NetworkHelper by NetworkHelperDelegate() {
 
-    private val _state = MutableStateFlow(PostUiState())
-    val state: StateFlow<PostUiState> = _state.asStateFlow()
+    val state: StateFlow<PostUiState>
+        field = MutableStateFlow(PostUiState())
 
     init {
         loadPosts()
@@ -24,7 +23,7 @@ class PostViewModel(private val getPosts: GetPostsUseCase) : ViewModel(),
 
     fun loadPosts() = viewModelScope.launch {
         getPosts().safeCollect {
-            _state.update { it.copy(posts = toImmutableList()) }
+            state.update { it.copy(posts = toImmutableList()) }
         }
     }
 }
