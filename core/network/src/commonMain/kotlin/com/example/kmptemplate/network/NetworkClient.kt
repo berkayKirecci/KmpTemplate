@@ -17,8 +17,6 @@ import io.ktor.http.contentType
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
 
 class NetworkClient(private val httpClient: HttpClient) {
 
@@ -30,12 +28,7 @@ class NetworkClient(private val httpClient: HttpClient) {
     }
 }
 
-val networkModule = module {
-    single { createHttpClient() }
-    singleOf(::NetworkClient)
-}
-
-private fun createHttpClient() = HttpClient {
+fun createHttpClient() = HttpClient {
     defaultRequest {
         url {
             takeFrom("https://dummyjson.com/")

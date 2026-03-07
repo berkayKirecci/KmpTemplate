@@ -46,6 +46,9 @@ kotlin {
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
+        // Core
+        implementation(projects.core.network)
+
         // Compose
         implementation(libs.compose.runtime)
         implementation(libs.compose.foundation)
