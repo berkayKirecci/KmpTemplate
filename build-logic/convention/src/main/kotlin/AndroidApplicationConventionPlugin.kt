@@ -16,10 +16,10 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.compose")
 
             extensions.configure<ApplicationExtension> {
-                compileSdk = lib.findVersion("android-compileSdk").get().toString().toInt()
+                compileSdk = versionCatalog.findVersion("android-compileSdk").get().toString().toInt()
                 defaultConfig {
-                    minSdk = lib.findVersion("android-minSdk").get().toString().toInt()
-                    targetSdk = lib.findVersion("android-targetSdk").get().toString().toInt()
+                    minSdk = versionCatalog.findVersion("android-minSdk").get().toString().toInt()
+                    targetSdk = versionCatalog.findVersion("android-targetSdk").get().toString().toInt()
                 }
                 packaging {
                     resources {
@@ -36,6 +36,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     targetCompatibility = JavaVersion.VERSION_11
                 }
             }
+
             extensions.configure<KotlinAndroidProjectExtension> {
                 compilerOptions {
                     freeCompilerArgs.add("-Xskip-prerelease-check")
