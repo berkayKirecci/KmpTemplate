@@ -12,7 +12,7 @@ kotlin {
         implementation(libs.kotlinx.serialization.json)
 
         // Ktor
-        implementation(libs.ktor.client.core)
+        api(libs.ktor.client.core)
         implementation(libs.ktor.client.content.negotiation)
         implementation(libs.ktor.serialization.kotlinx.json)
         implementation(libs.ktor.client.logging)
