@@ -14,5 +14,9 @@ gradlePlugin {
             id = "kmptemplate.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("kmpLibrary") {
+            id = "kmptemplate.kmp.library"
+            implementationClass = "KmpLibraryConventionPlugin"
+        }
     }
 }

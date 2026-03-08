@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
 
-    override fun apply(target: Project) = applyPlugin(target) { libs ->
+    override fun apply(target: Project) = convention(target) { libs ->
         apply(plugin = "com.android.application")
         apply(plugin = "org.jetbrains.kotlin.plugin.compose")
         apply(plugin = "org.jetbrains.compose")
@@ -38,8 +38,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinAndroidProjectExtension> {
             compilerOptions {
-                freeCompilerArgs.add("-Xskip-prerelease-check")
                 jvmTarget.set(JvmTarget.JVM_11)
+                freeCompilerArgs.add("-Xskip-prerelease-check")
             }
         }
 
