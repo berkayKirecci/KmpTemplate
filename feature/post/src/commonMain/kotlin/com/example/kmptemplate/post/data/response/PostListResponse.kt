@@ -1,7 +1,7 @@
-package com.example.kmptemplate.feature.post.data.response
+package com.example.kmptemplate.post.data.response
 
-import com.example.kmptemplate.feature.post.domain.model.Post
 import com.example.kmptemplate.network.model.BaseResponse
+import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

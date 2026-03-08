@@ -1,4 +1,4 @@
-package com.example.kmptemplate.feature.post.ui
+package com.example.kmptemplate.post.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kmptemplate.designsystem.BaseScreen
-import com.example.kmptemplate.feature.post.domain.model.Post
+import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
 

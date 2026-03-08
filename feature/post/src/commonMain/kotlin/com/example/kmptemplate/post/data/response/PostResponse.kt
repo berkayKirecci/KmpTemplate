@@ -1,6 +1,8 @@
-package com.example.kmptemplate.feature.post.data.response
+package com.example.kmptemplate.post.data.response
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 data class PostResponse(
     @SerialName("id") val id: Int? = null,

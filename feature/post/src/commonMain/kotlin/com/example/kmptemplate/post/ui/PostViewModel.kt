@@ -1,10 +1,10 @@
-package com.example.kmptemplate.feature.post.ui
+package com.example.kmptemplate.post.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kmptemplate.base.NetworkHelper
 import com.example.kmptemplate.base.NetworkHelperDelegate
-import com.example.kmptemplate.feature.post.domain.usecase.GetPostsUseCase
+import com.example.kmptemplate.post.domain.usecase.GetPostsUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

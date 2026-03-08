@@ -13,7 +13,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.example.kmptemplate.feature.home.ui.HomeScreen
-import com.example.kmptemplate.feature.post.ui.PostScreen
+import com.example.kmptemplate.post.ui.PostScreen
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 

@@ -1,6 +1,6 @@
-package com.example.kmptemplate.feature.post.ui
+package com.example.kmptemplate.post.ui
 
-import com.example.kmptemplate.feature.post.domain.model.Post
+import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
