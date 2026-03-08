@@ -1,6 +1,7 @@
 package com.example.kmptemplate.network
 
 import com.example.kmptemplate.network.model.BaseRequest
+import com.example.kmptemplate.network.model.BaseResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -16,9 +17,10 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
 
-class NetworkClient(private val httpClient: HttpClient) {
+class NetworkClient internal constructor(private val httpClient: HttpClient) {
 
     suspend fun get(endPoint: String) = httpClient.get(endPoint)
 
@@ -26,9 +28,17 @@ class NetworkClient(private val httpClient: HttpClient) {
         contentType(ContentType.Application.Json)
         setBody(body)
     }
+
+    inline fun <reified T : BaseResponse> get(endPoint: String): Flow<T> =
+        safeFlowRequest { get(endPoint) }
+
+    inline fun <reified T : BaseResponse> post(endPoint: String, body: BaseRequest): Flow<T> =
+        safeFlowRequest { post(endPoint, body) }
 }
 
-fun createHttpClient() = HttpClient {
+fun createNetworkClient() = NetworkClient(createHttpClient())
+
+internal fun createHttpClient() = HttpClient {
     defaultRequest {
         url {
             takeFrom("https://dummyjson.com/")

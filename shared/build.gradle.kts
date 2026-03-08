@@ -23,6 +23,7 @@ kotlin {
     dependencies {
         // Core
         implementation(projects.core.network)
+        implementation(projects.core.designsystem)
 
         // Compose
         implementation(libs.compose.runtime)
@@ -32,12 +33,13 @@ kotlin {
         implementation(libs.compose.components.resources)
         implementation(libs.compose.uiToolingPreview)
 
-        // Serialization
-        implementation(libs.kotlinx.serialization.json)
-
         // Lifecycle
         implementation(libs.androidx.lifecycle.viewmodelCompose)
         implementation(libs.androidx.lifecycle.runtimeCompose)
+
+        // Serialization
+        implementation(libs.kotlinx.serialization.json)
+
 
         // Navigation3
         implementation(libs.navigation3.ui)
@@ -56,9 +58,6 @@ kotlin {
 
         // Collections
         implementation(libs.kotlinx.collections.immutable)
-
-        // Snackbar
-        implementation(libs.crossmessages)
     }
 }
 

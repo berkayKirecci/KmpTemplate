@@ -5,10 +5,8 @@ import com.example.kmptemplate.feature.post.data.repository.PostRepositoryImpl
 import com.example.kmptemplate.feature.post.domain.repository.PostRepository
 import com.example.kmptemplate.feature.post.domain.usecase.GetPostsUseCase
 import com.example.kmptemplate.feature.post.ui.PostViewModel
-import com.example.kmptemplate.network.NetworkClient
-import com.example.kmptemplate.network.createHttpClient
+import com.example.kmptemplate.network.createNetworkClient
 import com.example.kmptemplate.platform.DataStore
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.plugin.module.dsl.single
@@ -16,8 +14,7 @@ import org.koin.plugin.module.dsl.viewModel
 
 
 val networkModule = module {
-    single { createHttpClient() }
-    singleOf(::NetworkClient)
+    single { createNetworkClient() }
 }
 
 val appModule = module {
