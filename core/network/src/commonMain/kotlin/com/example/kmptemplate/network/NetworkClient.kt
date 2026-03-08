@@ -13,7 +13,6 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
-import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
@@ -22,18 +21,20 @@ import kotlinx.serialization.json.Json
 
 class NetworkClient internal constructor(private val httpClient: HttpClient) {
 
-    suspend fun get(endPoint: String) = httpClient.get(endPoint)
-
-    suspend fun post(endPoint: String, body: BaseRequest) = httpClient.post(endPoint) {
-        contentType(ContentType.Application.Json)
-        setBody(body)
-    }
-
     inline fun <reified T : BaseResponse> get(endPoint: String): Flow<T> =
         safeFlowRequest { get(endPoint) }
 
     inline fun <reified T : BaseResponse> post(endPoint: String, body: BaseRequest): Flow<T> =
         safeFlowRequest { post(endPoint, body) }
+
+    @PublishedApi
+    internal suspend fun get(endPoint: String) = httpClient.get(endPoint)
+
+    @PublishedApi
+    internal suspend fun post(endPoint: String, body: BaseRequest) = httpClient.post(endPoint) {
+        contentType(ContentType.Application.Json)
+        setBody(body)
+    }
 }
 
 fun createNetworkClient() = NetworkClient(createHttpClient())
@@ -42,7 +43,6 @@ internal fun createHttpClient() = HttpClient {
     defaultRequest {
         url {
             takeFrom("https://dummyjson.com/")
-            protocol = URLProtocol.HTTPS
         }
     }
 
