@@ -9,8 +9,8 @@ class UiEventHelperDelegate : UiEventHelper {
     private val mutableEvent = MutableSharedFlow<BaseUiEvent>()
     override val uiEvent: SharedFlow<BaseUiEvent> = mutableEvent.asSharedFlow()
 
-    override fun emitEvent(event: BaseUiEvent) {
-        mutableEvent.tryEmit(event)
+    override suspend fun emitEvent(event: BaseUiEvent) {
+        mutableEvent.emit(event)
     }
 }
 

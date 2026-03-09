@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.koin)
 }
 
 kotlin {
@@ -21,6 +20,7 @@ kotlin {
 
             // Lifecycle
             implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
 
             // Koin
             implementation(libs.koin.compose.viewmodel)

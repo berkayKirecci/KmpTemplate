@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.SharedFlow
 
 interface UiEventHelper {
     val uiEvent: SharedFlow<BaseUiEvent>
-    fun emitEvent(event: BaseUiEvent)
+    suspend fun emitEvent(event: BaseUiEvent)
 }
 
