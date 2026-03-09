@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.kotlin.serializationGradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
     compileOnly(libs.android.gradlePlugin)
 }
@@ -17,6 +18,10 @@ gradlePlugin {
         register("kmpLibrary") {
             id = "kmptemplate.kmp.library"
             implementationClass = "KmpLibraryConventionPlugin"
+        }
+        register("kmpFeature") {
+            id = "kmptemplate.kmp.feature"
+            implementationClass = "KmpFeatureConventionPlugin"
         }
     }
 }
