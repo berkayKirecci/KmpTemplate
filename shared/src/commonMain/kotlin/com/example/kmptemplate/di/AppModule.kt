@@ -1,6 +1,6 @@
 package com.example.kmptemplate.di
 
-import com.example.kmptemplate.feature.home.ui.HomeViewmodel
+import com.example.kmptemplate.home.ui.HomeViewmodel
 import com.example.kmptemplate.network.createNetworkClient
 import com.example.kmptemplate.platform.DataStore
 import com.example.kmptemplate.post.data.repository.PostRepositoryImpl

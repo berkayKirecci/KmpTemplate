@@ -25,6 +25,7 @@ kotlin {
 
             // Feature
             implementation(projects.feature.post)
+            implementation(projects.feature.home)
 
             // Serialization
             implementation(libs.kotlinx.serialization.json)
