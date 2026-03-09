@@ -26,13 +26,6 @@ kotlin {
             // Feature
             implementation(projects.feature.post)
 
-            // Compose
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.uiToolingPreview)
-
             // Serialization
             implementation(libs.kotlinx.serialization.json)
 

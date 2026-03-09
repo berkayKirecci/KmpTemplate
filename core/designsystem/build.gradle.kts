@@ -11,15 +11,14 @@ kotlin {
             implementation(projects.core.base)
 
             // Compose
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.components.resources)
-            implementation(libs.compose.uiToolingPreview)
+            api(libs.compose.runtime)
+            api(libs.compose.foundation)
+            api(libs.compose.material3)
+            api(libs.compose.ui)
+            api(libs.compose.components.resources)
 
             // Lifecycle
-            implementation(libs.androidx.lifecycle.runtimeCompose)
+            api(libs.androidx.lifecycle.runtimeCompose)
 
             // Snackbar
             implementation(libs.crossmessages)
