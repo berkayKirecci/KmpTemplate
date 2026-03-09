@@ -8,6 +8,10 @@ plugins {
 }
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexplicit-backing-fields")
+    }
+
     android {
         androidResources {
             enable = true

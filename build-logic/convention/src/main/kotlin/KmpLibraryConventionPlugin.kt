@@ -26,7 +26,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
             }
 
             compilerOptions {
-                freeCompilerArgs.addAll("-Xexpect-actual-classes", "-Xexplicit-backing-fields")
+                freeCompilerArgs.add("-Xexpect-actual-classes")
             }
 
             listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
