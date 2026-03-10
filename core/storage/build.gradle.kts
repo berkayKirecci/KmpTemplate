@@ -5,8 +5,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.androidx.datastore)
-            implementation(libs.androidx.datastore.preferences)
+            api(libs.androidx.datastore)
+            api(libs.androidx.datastore.preferences)
         }
     }
 }
