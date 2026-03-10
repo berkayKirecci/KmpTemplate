@@ -11,6 +11,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = convention(target) { libs ->
         apply(plugin = "org.jetbrains.kotlin.multiplatform")
         apply(plugin = "com.android.kotlin.multiplatform.library")
+        apply(plugin = "io.insert-koin.compiler.plugin")
 
         val segments = target.path.removePrefix(":").split(":")
         val namespace = "com.example.kmptemplate.${segments.joinToString(".")}"

@@ -5,7 +5,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            // Coroutines
             api(libs.kotlinx.coroutines.core)
+
+            // Koin
+            api(libs.koin.compose)
         }
     }
 }

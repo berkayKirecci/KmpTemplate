@@ -37,7 +37,7 @@ class NetworkClient internal constructor(private val httpClient: HttpClient) {
     }
 }
 
-fun createNetworkClient() = NetworkClient(createHttpClient())
+internal fun createNetworkClient() = NetworkClient(createHttpClient())
 
 internal fun createHttpClient() = HttpClient {
     defaultRequest {
