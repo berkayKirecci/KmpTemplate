@@ -2,11 +2,11 @@ package com.example.kmptemplate.di
 
 import com.example.kmptemplate.home.ui.HomeViewmodel
 import com.example.kmptemplate.network.createNetworkClient
-import com.example.kmptemplate.platform.DataStore
 import com.example.kmptemplate.post.data.repository.PostRepositoryImpl
 import com.example.kmptemplate.post.domain.repository.PostRepository
 import com.example.kmptemplate.post.domain.usecase.GetPostsUseCase
 import com.example.kmptemplate.post.ui.PostViewModel
+import com.example.kmptemplate.storage.DataStore
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.plugin.module.dsl.single

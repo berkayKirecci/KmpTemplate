@@ -1,4 +1,4 @@
-package com.example.kmptemplate.platform
+package com.example.kmptemplate.storage
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -13,4 +13,5 @@ fun createDataStore(producePath: () -> String) = PreferenceDataStoreFactory.crea
     produceFile = { producePath().toPath() }
 )
 
-internal const val dataStoreFileName = "dice.preferences_pb"
+internal const val dataStoreFileName = "kmptemplate.preferences_pb"
+

@@ -26,6 +26,7 @@ kotlin {
             // Core
             implementation(projects.core.network)
             implementation(projects.core.designsystem)
+            implementation(projects.core.storage)
 
             // Feature
             implementation(projects.feature.post)
@@ -42,10 +43,6 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel.navigation)
             implementation(libs.koin.annotations)
-
-            // Datastore
-            implementation(libs.androidx.datastore)
-            implementation(libs.androidx.datastore.preferences)
         }
     }
 }
