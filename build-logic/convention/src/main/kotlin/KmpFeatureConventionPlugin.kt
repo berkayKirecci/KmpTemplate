@@ -19,13 +19,14 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
                 implementation(target.project(":core:network"))
 
                 // Serialization
-                implementation(libs.findLibrary("kotlinx-serialization-json").get())
+                implementation(libs.library("kotlinx-serialization-json"))
 
                 // Koin
-                implementation(libs.findLibrary("koin-compose-viewmodel").get())
+                implementation(libs.library("koin-compose"))
+                implementation(libs.library("koin-compose-viewmodel"))
 
                 // Collections
-                implementation(libs.findLibrary("kotlinx-collections-immutable").get())
+                implementation(libs.library("kotlinx-collections-immutable"))
             }
         }
     }

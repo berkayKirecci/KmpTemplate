@@ -37,10 +37,11 @@ kotlin {
             // Navigation3
             implementation(libs.navigation3.ui)
             implementation(libs.navigation3.viewmodel)
+
+            // Koin
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.navigation3)
         }
     }
 }
 
-dependencies {
-    androidRuntimeClasspath(libs.compose.uiTooling)
-}

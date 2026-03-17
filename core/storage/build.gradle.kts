@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // Core Base
-            api(projects.core.base)
+            implementation(projects.core.base)
 
             // Datastore
             api(libs.androidx.datastore)

@@ -3,14 +3,13 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.getByType
 
+internal const val APPLICATION_ID = "com.example.kmptemplate"
+
 internal val Project.versionCatalog: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 internal fun VersionCatalog.version(alias: String): Int =
     findVersion(alias).get().toString().toInt()
-
-internal fun VersionCatalog.versionString(alias: String): String =
-    findVersion(alias).get().toString()
 
 internal fun VersionCatalog.library(alias: String) =
     findLibrary(alias).get()

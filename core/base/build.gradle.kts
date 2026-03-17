@@ -9,7 +9,7 @@ kotlin {
             api(libs.kotlinx.coroutines.core)
 
             // Koin
-            api(libs.koin.compose)
+            api(libs.koin.core)
         }
     }
 }

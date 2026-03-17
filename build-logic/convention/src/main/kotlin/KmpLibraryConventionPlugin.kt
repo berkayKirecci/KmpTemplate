@@ -14,7 +14,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         apply(plugin = "io.insert-koin.compiler.plugin")
 
         val segments = target.path.removePrefix(":").split(":")
-        val namespace = "com.example.kmptemplate.${segments.joinToString(".")}"
+        val namespace = "$APPLICATION_ID.${segments.joinToString(".")}"
         val frameworkName = segments.joinToString("") { it.replaceFirstChar(Char::uppercaseChar) }
 
         extensions.configure<KotlinMultiplatformExtension> {
