@@ -19,10 +19,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kmptemplate.designsystem.BaseScreen
 import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.collections.immutable.ImmutableList
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun PostScreen(viewModel: PostViewModel = koinViewModel()) {
+fun PostScreen(viewModel: PostViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     BaseScreen(viewModel) {
         PostList(state.posts)

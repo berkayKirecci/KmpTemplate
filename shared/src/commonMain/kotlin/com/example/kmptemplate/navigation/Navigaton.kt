@@ -7,27 +7,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
-import com.example.kmptemplate.home.ui.HomeScreen
-import com.example.kmptemplate.post.ui.PostScreen
+import com.example.kmptemplate.home.ui.HomeRoute
+import com.example.kmptemplate.post.ui.PostRoute
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
+import org.koin.compose.navigation3.koinEntryProvider
+import org.koin.core.annotation.KoinExperimentalAPI
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun Navigation(modifier: Modifier) {
     val backStack = rememberNavBackStack(
         configuration = SavedStateConfiguration {
             serializersModule = SerializersModule {
                 polymorphic(NavKey::class) {
-                    subclass(Screens.Home::class, Screens.Home.serializer())
-                    subclass(Screens.Post::class, Screens.Post.serializer())
+                    subclass(HomeRoute::class, HomeRoute.serializer())
+                    subclass(PostRoute::class, PostRoute.serializer())
                 }
             }
-        }, Screens.Post
+        }, PostRoute
     )
 
     NavDisplay(
@@ -38,14 +40,7 @@ fun Navigation(modifier: Modifier) {
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator()
         ),
-        entryProvider = entryProvider {
-            entry<Screens.Home> {
-                HomeScreen()
-            }
-            entry<Screens.Post> {
-                PostScreen()
-            }
-        },
+        entryProvider = koinEntryProvider(),
         transitionSpec = {
             slideInHorizontally(initialOffsetX = { it }) togetherWith
                     slideOutHorizontally(targetOffsetX = { -it })
