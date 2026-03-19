@@ -11,6 +11,9 @@ kotlin {
             // Datastore
             api(libs.androidx.datastore)
             api(libs.androidx.datastore.preferences)
+
+            // Koin
+            api(libs.koin.core)
         }
     }
 }

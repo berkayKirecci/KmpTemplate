@@ -24,7 +24,7 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
                 // Koin
                 implementation(libs.library("koin-compose"))
                 implementation(libs.library("koin-compose-viewmodel"))
-                api(libs.library("koin-compose-navigation3"))
+                implementation(libs.library("koin-compose-navigation3"))
 
                 // Navigation3
                 implementation(libs.library("navigation3-runtime"))

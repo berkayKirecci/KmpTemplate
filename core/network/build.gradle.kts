@@ -9,6 +9,9 @@ kotlin {
             // Core Base
             api(projects.core.base)
 
+            // Koin
+            api(libs.koin.core)
+
             // Serialization
             implementation(libs.kotlinx.serialization.json)
 
