@@ -7,6 +7,9 @@ kotlin {
         commonMain.dependencies {
             // Coroutines
             api(libs.kotlinx.coroutines.core)
+
+            // Serialization
+            api(libs.kotlinx.serialization.json)
         }
     }
 }

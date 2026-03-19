@@ -12,9 +12,6 @@ kotlin {
             // Koin
             api(libs.koin.core)
 
-            // Serialization
-            implementation(libs.kotlinx.serialization.json)
-
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
