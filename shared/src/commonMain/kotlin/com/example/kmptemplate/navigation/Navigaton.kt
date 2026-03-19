@@ -6,15 +6,10 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.savedstate.serialization.SavedStateConfiguration
-import com.example.kmptemplate.home.ui.HomeRoute
 import com.example.kmptemplate.post.ui.PostRoute
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
 import org.koin.compose.navigation3.koinEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -22,14 +17,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Composable
 fun Navigation(modifier: Modifier) {
     val backStack = rememberNavBackStack(
-        configuration = SavedStateConfiguration {
-            serializersModule = SerializersModule {
-                polymorphic(NavKey::class) {
-                    subclass(HomeRoute::class, HomeRoute.serializer())
-                    subclass(PostRoute::class, PostRoute.serializer())
-                }
-            }
-        }, PostRoute
+        configuration = appSavedStateConfig, PostRoute
     )
 
     NavDisplay(
