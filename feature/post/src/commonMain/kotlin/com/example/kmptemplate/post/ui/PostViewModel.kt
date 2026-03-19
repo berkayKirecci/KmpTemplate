@@ -22,7 +22,7 @@ class PostViewModel(private val getPosts: GetPostsUseCase) : ViewModel(),
     }
 
     fun loadPosts() = viewModelScope.launch {
-        safeCall({ getPosts() }) {                  // suspend () -> List<Post>
+        safeCall({ getPosts() }) {
             state.update { it.copy(posts = toImmutableList()) }
         }
     }
