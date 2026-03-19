@@ -26,4 +26,16 @@ class NetworkHelperDelegate(
                 onSuccess(it)
             }
     }
+
+    override suspend fun <T> safeCall(block: suspend () -> T, onSuccess: T.() -> Unit) {
+        mutableState.value = true
+        try {
+            val result = block()
+            mutableState.value = false
+            onSuccess(result)
+        } catch (e: Exception) {
+            mutableState.value = false
+            emitEvent(BaseUiEvent.ShowError(e.message.orEmpty()))
+        }
+    }
 }

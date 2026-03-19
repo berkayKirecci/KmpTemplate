@@ -13,6 +13,9 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
         apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
         extensions.configure<KotlinMultiplatformExtension> {
+            compilerOptions {
+                freeCompilerArgs.add("-Xexplicit-backing-fields")
+            }
             sourceSets.getByName("commonMain").dependencies {
                 // Core
                 implementation(target.project(":core:designsystem"))

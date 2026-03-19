@@ -8,9 +8,8 @@ plugins {
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs.add("-Xexplicit-backing-fields")
+        freeCompilerArgs.add("-Xskip-prerelease-check")
     }
-
     android {
         androidResources {
             enable = true

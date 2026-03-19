@@ -21,10 +21,16 @@ import kotlinx.serialization.json.Json
 
 class NetworkClient internal constructor(private val httpClient: HttpClient) {
 
-    inline fun <reified T : BaseResponse> get(endPoint: String): Flow<T> =
+    suspend inline fun <reified T : BaseResponse> request(endPoint: String): T =
+        safeRequest { get(endPoint) }
+
+    suspend inline fun <reified T : BaseResponse> request(endPoint: String, body: BaseRequest): T =
+        safeRequest { post(endPoint, body) }
+
+    inline fun <reified T : BaseResponse> flowRequest(endPoint: String): Flow<T> =
         safeFlowRequest { get(endPoint) }
 
-    inline fun <reified T : BaseResponse> post(endPoint: String, body: BaseRequest): Flow<T> =
+    inline fun <reified T : BaseResponse> flowRequest(endPoint: String, body: BaseRequest): Flow<T> =
         safeFlowRequest { post(endPoint, body) }
 
     @PublishedApi

@@ -4,5 +4,5 @@ import com.example.kmptemplate.post.domain.repository.PostRepository
 
 class GetPostsUseCase(private val postRepository: PostRepository) {
 
-    operator fun invoke() = postRepository.getPosts()
+    suspend operator fun invoke() = postRepository.getPosts()
 }
