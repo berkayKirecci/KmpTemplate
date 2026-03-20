@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.koin) apply false
+    alias(libs.plugins.kotlinCocoapods) apply false
 }

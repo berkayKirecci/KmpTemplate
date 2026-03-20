@@ -25,6 +25,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.designsystem)
             implementation(projects.core.storage)
+            implementation(projects.core.ads)
 
             // Feature
             implementation(projects.feature.post)
