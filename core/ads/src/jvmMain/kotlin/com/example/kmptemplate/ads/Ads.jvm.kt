@@ -10,6 +10,6 @@ actual fun BannerAd(modifier: Modifier) {
 }
 
 @Composable
-actual fun InterstitialAd(onDismiss: () -> Unit, modifier: Modifier) {
+actual fun InterstitialAd(onDismiss: () -> Unit) {
     Box {}
 }

@@ -3,6 +3,7 @@
 package com.example.kmptemplate.ads
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitView
 import cocoapods.GoogleMobileAds.GADAdSizeBanner
@@ -31,20 +32,22 @@ actual fun BannerAd(modifier: Modifier) {
 }
 
 @Composable
-actual fun InterstitialAd(onDismiss: () -> Unit, modifier: Modifier) {
-    GADInterstitialAd.loadWithAdUnitID(
-        adUnitID = AdConstants.interstitialAdId,
-        request = GADRequest(),
-        completionHandler = { ad, _ ->
-            if (ad != null) {
-                ad.fullScreenContentDelegate =
-                    object : NSObject(), GADFullScreenContentDelegateProtocol {
-                        override fun adDidDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                            onDismiss()
+actual fun InterstitialAd(onDismiss: () -> Unit) {
+    LaunchedEffect(Unit) {
+        GADInterstitialAd.loadWithAdUnitID(
+            adUnitID = AdConstants.interstitialAdId,
+            request = GADRequest(),
+            completionHandler = { ad, _ ->
+                if (ad != null) {
+                    ad.fullScreenContentDelegate =
+                        object : NSObject(), GADFullScreenContentDelegateProtocol {
+                            override fun adDidDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
+                                onDismiss()
+                            }
                         }
-                    }
-                ad.presentFromRootViewController(UIApplication.sharedApplication.keyWindow?.rootViewController)
+                    ad.presentFromRootViewController(UIApplication.sharedApplication.keyWindow?.rootViewController)
+                }
             }
-        }
-    )
+        )
+    }
 }

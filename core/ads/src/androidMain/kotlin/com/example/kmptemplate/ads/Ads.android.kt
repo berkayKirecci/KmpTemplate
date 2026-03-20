@@ -3,6 +3,8 @@
 package com.example.kmptemplate.ads
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -30,25 +32,33 @@ actual fun BannerAd(modifier: Modifier) {
 }
 
 @Composable
-actual fun InterstitialAd(onDismiss: () -> Unit, modifier: Modifier) {
+actual fun InterstitialAd(onDismiss: () -> Unit) {
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        InterstitialAd.load(
-            context,
-            AdConstants.interstitialAdId,
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    super.onAdLoaded(ad)
-                    ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-                        override fun onAdDismissedFullScreenContent() {
-                            super.onAdDismissedFullScreenContent()
-                            onDismiss()
+    context.activity()?.let { activity ->
+        LaunchedEffect(Unit) {
+            InterstitialAd.load(
+                context,
+                AdConstants.interstitialAdId,
+                AdRequest.Builder().build(),
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        super.onAdLoaded(ad)
+                        ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+                            override fun onAdDismissedFullScreenContent() {
+                                super.onAdDismissedFullScreenContent()
+                                onDismiss()
+                            }
                         }
+                        ad.show(activity)
                     }
-                    ad.show(context as Activity)
                 }
-            }
-        )
+            )
+        }
     }
+}
+
+private fun Context.activity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.activity()
+    else -> null
 }
