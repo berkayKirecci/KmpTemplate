@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package com.example.kmptemplate.ads
 
 import androidx.compose.runtime.Composable
@@ -5,12 +7,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitView
 import cocoapods.GoogleMobileAds.GADAdSizeBanner
 import cocoapods.GoogleMobileAds.GADBannerView
+import cocoapods.GoogleMobileAds.GADMobileAds
 import cocoapods.GoogleMobileAds.GADRequest
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.readValue
 import platform.UIKit.UIApplication
 
-@OptIn(ExperimentalForeignApi::class)
+actual class AdManager {
+    actual fun initAds() {
+        GADMobileAds.sharedInstance.startWithCompletionHandler { status ->
+            println("AdManager Status : ${status?.description}")
+        }
+    }
+}
+
 @Composable
 actual fun BannerAd(adId: String, modifier: Modifier) {
     UIKitView(
