@@ -9,9 +9,6 @@ kotlin {
             // Core Base
             api(projects.core.base)
 
-            // Koin
-            api(libs.koin.core)
-
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)

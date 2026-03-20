@@ -10,6 +10,9 @@ kotlin {
 
             // Serialization
             api(libs.kotlinx.serialization.json)
+
+            // Koin
+            api(libs.koin.core)
         }
     }
 }

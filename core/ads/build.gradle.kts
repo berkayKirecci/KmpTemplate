@@ -26,12 +26,12 @@ kotlin {
         }
 
         commonMain.dependencies {
+            // Core Base
+            implementation(projects.core.base)
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
-
-            // Koin
-            implementation(libs.koin.core)
         }
     }
 }

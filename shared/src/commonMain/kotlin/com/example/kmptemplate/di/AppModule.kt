@@ -1,6 +1,6 @@
 package com.example.kmptemplate.di
 
-import com.example.kmptemplate.ads.di.adManager
+import com.example.kmptemplate.ads.di.adModule
 import com.example.kmptemplate.home.di.homeModule
 import com.example.kmptemplate.network.di.networkModule
 import com.example.kmptemplate.post.di.postModule
@@ -14,7 +14,7 @@ val appModule = module {
             homeModule,
             postModule,
             storageModule,
-            adManager
+            adModule
         )
     )
 }
