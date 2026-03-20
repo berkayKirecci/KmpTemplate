@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.kmptemplate.ads.BannerAd
 import com.example.kmptemplate.designsystem.BaseScreen
 import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.collections.immutable.ImmutableList
@@ -24,6 +25,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun PostScreen(viewModel: PostViewModel) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     BaseScreen(viewModel) {
+        BannerAd()
         PostList(state.posts)
     }
 }

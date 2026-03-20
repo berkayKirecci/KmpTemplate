@@ -1,0 +1,6 @@
+package com.example.kmptemplate.ads
+
+actual object AdConstants {
+    actual val bannerAdId: String = "ca-app-pub-3940256099942544/6300978111"
+}
+

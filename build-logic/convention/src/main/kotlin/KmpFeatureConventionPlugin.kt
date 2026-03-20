@@ -20,6 +20,7 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
                 // Core
                 implementation(target.project(":core:designsystem"))
                 implementation(target.project(":core:network"))
+                implementation(target.project(":core:ads"))
 
                 // Serialization
                 implementation(libs.library("kotlinx-serialization-json"))

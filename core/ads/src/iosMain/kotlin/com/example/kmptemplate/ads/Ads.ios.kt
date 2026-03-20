@@ -7,27 +7,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitView
 import cocoapods.GoogleMobileAds.GADAdSizeBanner
 import cocoapods.GoogleMobileAds.GADBannerView
-import cocoapods.GoogleMobileAds.GADMobileAds
 import cocoapods.GoogleMobileAds.GADRequest
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.readValue
 import platform.UIKit.UIApplication
 
-actual class AdManager {
-    actual fun initAds() {
-        GADMobileAds.sharedInstance.startWithCompletionHandler { status ->
-            println("AdManager Status : ${status?.description}")
-        }
-    }
-}
 
 @Composable
-actual fun BannerAd(adId: String, modifier: Modifier) {
+actual fun BannerAd(modifier: Modifier) {
     UIKitView(
         modifier = modifier,
         factory = {
             GADBannerView(adSize = GADAdSizeBanner.readValue()).apply {
-                adUnitID = adId
+                adUnitID = AdConstants.bannerAdId
                 rootViewController = UIApplication.sharedApplication.keyWindow?.rootViewController
                 loadRequest(GADRequest())
             }
