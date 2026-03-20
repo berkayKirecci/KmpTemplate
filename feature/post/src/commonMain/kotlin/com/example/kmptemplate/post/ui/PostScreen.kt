@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kmptemplate.ads.BannerAd
+import com.example.kmptemplate.ads.InterstitialAd
 import com.example.kmptemplate.designsystem.BaseScreen
 import com.example.kmptemplate.post.domain.model.Post
 import kotlinx.collections.immutable.ImmutableList
@@ -27,6 +28,7 @@ fun PostScreen(viewModel: PostViewModel) {
     BaseScreen(viewModel) {
         BannerAd()
         PostList(state.posts)
+        InterstitialAd()
     }
 }
 

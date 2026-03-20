@@ -8,3 +8,8 @@ import androidx.compose.ui.Modifier
 actual fun BannerAd(modifier: Modifier) {
     Box {}
 }
+
+@Composable
+actual fun InterstitialAd(onDismiss: () -> Unit, modifier: Modifier) {
+    Box {}
+}
