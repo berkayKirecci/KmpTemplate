@@ -6,6 +6,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import java.util.Properties
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
 
@@ -13,6 +14,11 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         apply(plugin = "com.android.application")
         apply(plugin = "org.jetbrains.kotlin.plugin.compose")
         apply(plugin = "org.jetbrains.compose")
+
+        val localProps = Properties().also { props ->
+            val f = rootProject.file("local.properties")
+            if (f.exists()) f.inputStream().use(props::load)
+        }
 
         extensions.configure<ApplicationExtension> {
             compileSdk = libs.version("android-compileSdk")
@@ -25,9 +31,28 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     excludes += "/META-INF/{AL2.0,LGPL2.1}"
                 }
             }
+            signingConfigs {
+                val storeFilePath = localProps.getProperty("signing.storeFile")
+                if (storeFilePath != null) {
+                    create("release") {
+                        storeFile = file(storeFilePath)
+                        storePassword = localProps.getProperty("signing.storePassword")
+                        keyAlias = localProps.getProperty("signing.keyAlias")
+                        keyPassword = localProps.getProperty("signing.keyPassword")
+                    }
+                }
+            }
             buildTypes {
                 getByName("release") {
-                    isMinifyEnabled = false
+                    isMinifyEnabled = true
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                    val releaseSigningConfig = signingConfigs.findByName("release")
+                    if (releaseSigningConfig != null) {
+                        signingConfig = releaseSigningConfig
+                    }
                 }
             }
             compileOptions {

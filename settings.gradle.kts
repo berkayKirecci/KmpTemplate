@@ -35,11 +35,11 @@ plugins {
 
 include(":shared")
 include(":androidApp")
-include(":desktopApp")
 include(":core:network")
 include(":core:storage")
 include(":core:designsystem")
 include(":core:base")
 include(":core:ads")
+include(":core:firebase")
 include(":feature:post")
 include(":feature:home")

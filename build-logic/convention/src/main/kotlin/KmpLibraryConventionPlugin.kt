@@ -36,8 +36,6 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
                     isStatic = true
                 }
             }
-
-            jvm()
         }
     }
 }
