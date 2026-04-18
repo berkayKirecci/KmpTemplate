@@ -15,7 +15,8 @@ kotlin {
             api(libs.compose.foundation)
             api(libs.compose.material3)
             api(libs.compose.ui)
-            implementation(libs.compose.components.resources)
+            api(libs.compose.material.icons.extended)
+            api(libs.compose.components.resources)
 
             // Lifecycle
             api(libs.androidx.lifecycle.runtimeCompose)
