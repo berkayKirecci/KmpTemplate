@@ -9,8 +9,8 @@ kotlin {
             implementation(projects.core.base)
 
             // Datastore
-            api(libs.androidx.datastore)
-            api(libs.androidx.datastore.preferences)
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
         }
     }
 }

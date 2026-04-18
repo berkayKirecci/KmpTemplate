@@ -10,9 +10,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.base)
 
-            // Compose runtime
-            implementation(libs.compose.runtime)
-
             // Navigation3
             implementation(libs.navigation3.ui)
             implementation(libs.navigation3.viewmodel)
