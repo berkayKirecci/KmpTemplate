@@ -23,6 +23,7 @@ ktor = "3.4.1"
 playServicesAds = "25.2.0"
 firebase-bom = "34.12.0"
 permissions = "0.20.1"
+playReview = "2.0.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -65,6 +66,7 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 permissions = { module = "dev.icerock.moko:permissions", version.ref = "permissions" }
 permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
 permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "permissions" }
+play-review = { module = "com.google.android.play:review-ktx", version.ref = "playReview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

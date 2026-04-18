@@ -23,13 +23,13 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.play.services.ads)
+            implementation(libs.play.review)
         }
 
         commonMain.dependencies {
             // Core Base
             implementation(projects.core.base)
 
-            implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
         }

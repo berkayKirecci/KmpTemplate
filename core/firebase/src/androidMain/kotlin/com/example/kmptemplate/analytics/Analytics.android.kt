@@ -1,8 +1,9 @@
 package com.example.kmptemplate.analytics
 
 import android.os.Bundle
+import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.analytics.analytics
 
 actual class Analytics actual constructor() {
 
