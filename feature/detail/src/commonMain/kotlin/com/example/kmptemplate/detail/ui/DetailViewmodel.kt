@@ -1,13 +1,13 @@
-package com.example.kmptemplate.home.ui
+package com.example.kmptemplate.detail.ui
 
 import androidx.lifecycle.ViewModel
 import com.example.kmptemplate.base.NetworkHelper
 import com.example.kmptemplate.base.NetworkHelperDelegate
 
-class HomeViewmodel : ViewModel(), NetworkHelper by NetworkHelperDelegate() {
+class DetailViewmodel : ViewModel(), NetworkHelper by NetworkHelperDelegate() {
 
     override fun onCleared() {
-        println("HomeViewmodel.onCleared")
+        println("DetailViewmodel.onCleared")
         super.onCleared()
     }
 }

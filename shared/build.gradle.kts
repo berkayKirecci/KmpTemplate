@@ -26,18 +26,14 @@ kotlin {
             implementation(projects.core.designsystem)
             implementation(projects.core.storage)
             implementation(projects.core.ads)
+            implementation(projects.core.navigation)
 
             // Feature
             implementation(projects.feature.post)
-            implementation(projects.feature.home)
-
-            // Navigation3
-            implementation(libs.navigation3.ui)
-            implementation(libs.navigation3.viewmodel)
+            implementation(projects.feature.detail)
 
             // Koin
             implementation(libs.koin.compose)
-            implementation(libs.koin.compose.navigation3)
         }
     }
 }
