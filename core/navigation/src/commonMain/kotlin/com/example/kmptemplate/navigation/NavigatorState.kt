@@ -9,13 +9,13 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.modules.SerializersModule
 import org.koin.compose.getKoin
 
-data class NavigatorState(
+internal data class NavigatorState(
     val navigator: Navigator,
     val backStack: NavBackStack<NavKey>,
 )
 
 @Composable
-fun rememberNavigator(startDestination: NavKey = PostRoute): NavigatorState {
+internal fun rememberNavigator(startDestination: NavKey = PostRoute): NavigatorState {
     val koin = getKoin()
     val navigator = remember { koin.get<Navigator>() }
 
