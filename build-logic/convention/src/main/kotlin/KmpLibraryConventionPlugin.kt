@@ -17,6 +17,10 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         val namespace = "$APPLICATION_ID.${segments.joinToString(".")}"
         val frameworkName = segments.joinToString("") { it.replaceFirstChar(Char::uppercaseChar) }
 
+        // The swiftPMImport cinterop namespace is derived from the Gradle group, so every
+        // KMP module needs it set consistently for SwiftPM import to resolve.
+        target.group = APPLICATION_ID
+
         extensions.configure<KotlinMultiplatformExtension> {
             jvmToolchain(11)
 
@@ -28,6 +32,10 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
 
             compilerOptions {
                 freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+
+            sourceSets.configureEach {
+                languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
             }
 
             listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->

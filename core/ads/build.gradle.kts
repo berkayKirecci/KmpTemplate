@@ -1,23 +1,20 @@
+@file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+
 plugins {
     id("kmptemplate.kmp.library")
-    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
-    cocoapods {
-        version = "1.0"
-        ios.deploymentTarget = "15.0"
-        framework {
-            baseName = "CoreAds"
-            isStatic = true
-        }
-        pod("Google-Mobile-Ads-SDK") {
-            version = "~> 13.1"
-            moduleName = "GoogleMobileAds"
-            packageName = "cocoapods.GoogleMobileAds"
-        }
+    swiftPMDependencies {
+        iosMinimumDeploymentTarget.set("16.0")
+
+        swiftPackage(
+            url = url("https://github.com/googleads/swift-package-manager-google-mobile-ads.git"),
+            version = from(libs.versions.google.mobile.ads.ios.get()),
+            products = listOf(product("GoogleMobileAds")),
+        )
     }
 
     sourceSets {

@@ -1,6 +1,6 @@
 package com.example.kmptemplate.ads
 
-import cocoapods.GoogleMobileAds.GADMobileAds
+import swiftPMImport.com.example.kmptemplate.core.ads.GADMobileAds
 import kotlinx.cinterop.ExperimentalForeignApi
 
 actual class AdManager {

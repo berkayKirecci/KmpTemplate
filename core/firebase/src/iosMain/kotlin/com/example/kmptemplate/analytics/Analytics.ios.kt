@@ -2,7 +2,7 @@
 
 package com.example.kmptemplate.analytics
 
-import cocoapods.FirebaseAnalytics.FIRAnalytics
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRAnalytics
 
 actual class Analytics actual constructor() {
 

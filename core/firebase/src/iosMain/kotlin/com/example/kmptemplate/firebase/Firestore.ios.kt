@@ -2,11 +2,11 @@
 
 package com.example.kmptemplate.firebase
 
-import cocoapods.FirebaseFirestoreInternal.FIRDocumentSnapshot
-import cocoapods.FirebaseFirestoreInternal.FIRFieldValue
-import cocoapods.FirebaseFirestoreInternal.FIRFirestore
-import cocoapods.FirebaseFirestoreInternal.FIRQuery
-import cocoapods.FirebaseFirestoreInternal.FIRQuerySnapshot
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRDocumentSnapshot
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRFieldValue
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRFirestore
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRQuery
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRQuerySnapshot
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
 import kotlinx.coroutines.channels.awaitClose

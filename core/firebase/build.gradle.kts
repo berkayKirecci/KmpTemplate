@@ -1,31 +1,38 @@
+@file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+
 plugins {
     id("kmptemplate.kmp.library")
-    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
-    cocoapods {
-        version = "1.0"
-        ios.deploymentTarget = "15.0"
-        framework {
-            baseName = "CoreFirebase"
-            isStatic = true
-        }
-        // FirebaseFirestoreInternal exposes the ObjC FIR* classes for Kotlin/Native cinterop.
-        // FirebaseFirestore (Swift wrapper) is still installed via the iosApp Podfile.
-        pod("FirebaseFirestoreInternal") {
-            version = "~> 11.6"
-        }
-        pod("FirebaseCore") {
-            version = "~> 11.6"
-        }
-        pod("FirebaseAnalytics") {
-            version = "~> 11.6"
-        }
-        pod("FirebaseAuth") {
-            version = "~> 11.6"
-        }
+    swiftPMDependencies {
+        iosMinimumDeploymentTarget.set("16.0")
+
+        // Firebase pulls in C++ transitive modules (gRPC, abseil, leveldb, BoringSSL) that
+        // fail cinterop generation, so discovery is off and the needed modules are listed.
+        discoverClangModulesImplicitly.set(false)
+
+        // All Firebase products must come from a single package declaration: they share
+        // transitive dependencies, and splitting them causes duplicate-symbol dyld crashes.
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from(libs.versions.firebase.ios.get()),
+            products = listOf(
+                product("FirebaseCore"),
+                product("FirebaseAnalytics"),
+                product("FirebaseAuth"),
+                product("FirebaseFirestore"),
+            ),
+            importedClangModules = listOf(
+                "FirebaseCore",
+                "FirebaseAnalytics",
+                "FirebaseAuth",
+                // Firestore ships as a binary xcframework whose ObjC Clang module is named
+                // FirebaseFirestoreInternal, not FirebaseFirestore.
+                "FirebaseFirestoreInternal",
+            ),
+        )
     }
 
     sourceSets {

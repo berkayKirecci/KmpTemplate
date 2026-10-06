@@ -17,8 +17,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.kmptemplate.base.BaseUiEvent
 import com.example.kmptemplate.base.NetworkHelper
 import com.example.kmptemplate.base.UiEventHelper
-import state.rememberSnackbarState
-import ui.MultiPlatformSnackbar
+import io.github.berkaykirecci.crossmessages.snackbar.CrossSnackbarHost
+import io.github.berkaykirecci.crossmessages.snackbar.rememberCrossSnackbarHostState
 
 @Composable
 fun BaseScreen(
@@ -44,7 +44,7 @@ fun BaseScreen(
     content: @Composable ColumnScope.() -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val snackbarState = rememberSnackbarState()
+    val snackbarState = rememberCrossSnackbarHostState()
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -56,7 +56,7 @@ fun BaseScreen(
         }
     }
 
-    MultiPlatformSnackbar(state = snackbarState)
+    CrossSnackbarHost(hostState = snackbarState)
 
     Column(modifier = Modifier.fillMaxSize()) {
         content()

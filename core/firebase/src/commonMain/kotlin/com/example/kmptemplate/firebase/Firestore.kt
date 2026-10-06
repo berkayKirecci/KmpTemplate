@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
  * Create one instance per collection and inject it wherever needed.
  *
  *   Android → com.google.firebase:firebase-firestore
- *   iOS     → cocoapods.FirebaseFirestoreInternal (FIRFirestore)
+ *   iOS     → swiftPMImport (FIRFirestore, from the FirebaseFirestoreInternal Clang module)
  */
 expect class Firestore(collectionName: String) {
 

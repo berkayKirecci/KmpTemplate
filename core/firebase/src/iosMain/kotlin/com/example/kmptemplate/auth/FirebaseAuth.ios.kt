@@ -2,7 +2,7 @@
 
 package com.example.kmptemplate.auth
 
-import cocoapods.FirebaseAuth.FIRAuth
+import swiftPMImport.com.example.kmptemplate.core.firebase.FIRAuth
 import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSError
 import kotlin.coroutines.resume

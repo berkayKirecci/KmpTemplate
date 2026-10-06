@@ -1,31 +1,35 @@
 [versions]
-agp = "9.1.1"
+# AGP 9.3.x requires Gradle 9.5.0+; AGP 9.4.x would require Gradle 9.6.0+.
+agp = "9.3.3"
 android-compileSdk = "37"
 android-minSdk = "24"
 #noinspection OldTargetApi
 android-targetSdk = "36"
 androidx-activity = "1.13.0"
-androidx-lifecycle = "2.10.0"
-composeHotReload = "1.0.0"
-composeMultiplatform = "1.10.3"
-crossmessages = "1.0.3"
+androidx-lifecycle = "2.11.0"
+composeHotReload = "1.2.0"
+composeMultiplatform = "1.12.1"
+crossmessages = "2.0.0"
 datastore = "1.2.1"
-koin = "4.2.1"
-koin-plugin = "0.6.2"
-kotlin = "2.3.20"
-kotlinx-coroutines = "1.10.2"
+koin = "4.2.2"
+koin-plugin = "1.2.1"
+kotlin = "2.4.20"
+kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
-kotlinx-collections-immutable = "0.4.0"
-material3 = "1.10.0-alpha05"
-nav3-ui = "1.0.0-alpha06"
-nav3-runtime = "1.1.0"
-nav3-lifecycle = "2.10.0"
-ktor = "3.4.2"
-playServicesAds = "25.2.0"
-firebase-bom = "34.12.0"
+kotlinx-collections-immutable = "0.5.2"
+material3 = "1.12.0-alpha03"
+nav3-ui = "1.1.2"
+nav3-runtime = "1.2.0"
+nav3-lifecycle = "2.11.0"
+ktor = "3.6.0"
+playServicesAds = "25.5.0"
+firebase-bom = "34.19.0"
 permissions = "0.20.1"
 playReview = "2.0.2"
 material-icons = "1.7.3"
+# Apple-side SwiftPM package pins (consumed via swiftPMDependencies)
+firebase-ios = "12.6.0"
+google-mobile-ads-ios = "13.11.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -56,6 +60,7 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-serializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
@@ -81,4 +86,3 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 koin = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
