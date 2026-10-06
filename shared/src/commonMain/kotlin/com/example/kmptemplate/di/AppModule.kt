@@ -1,7 +1,7 @@
 package com.example.kmptemplate.di
 
 import com.example.kmptemplate.ads.di.adModule
-import com.example.kmptemplate.detail.di.homeModule
+import com.example.kmptemplate.detail.di.detailModule
 import com.example.kmptemplate.navigation.navigationModule
 import com.example.kmptemplate.network.di.networkModule
 import com.example.kmptemplate.post.di.postModule
@@ -12,7 +12,7 @@ val appModule = module {
     includes(
         listOf(
             networkModule,
-            homeModule,
+            detailModule,
             postModule,
             storageModule,
             navigationModule,

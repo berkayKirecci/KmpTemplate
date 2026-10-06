@@ -16,8 +16,13 @@ kotlin {
             implementation(libs.ktor.client.logging)
         }
 
-        // HttpClient {} resolves its engine at runtime via HttpClientEngineContainer, so each
-        // target needs an engine artifact on the classpath. Android gets OkHttp from androidApp.
+        // HttpClient {} resolves its engine at runtime via HttpClientEngineContainer, so
+        // every target needs an engine artifact on the classpath. These belong with the
+        // module that builds the client, not with the consuming app.
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
