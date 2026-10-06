@@ -1,4 +1,4 @@
-package com.example.kmptemplate.ads
+package com.example.kmptemplate.platform
 
 import android.app.Activity
 import android.util.Log

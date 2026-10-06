@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package com.example.kmptemplate.ads
+package com.example.kmptemplate.platform
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

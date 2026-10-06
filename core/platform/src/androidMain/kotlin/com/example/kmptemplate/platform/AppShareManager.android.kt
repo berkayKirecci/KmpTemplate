@@ -1,4 +1,4 @@
-package com.example.kmptemplate.ads
+package com.example.kmptemplate.platform
 
 import android.content.Intent
 import androidx.compose.runtime.Composable

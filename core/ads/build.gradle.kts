@@ -20,7 +20,6 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.play.services.ads)
-            implementation(libs.play.review)
         }
 
         commonMain.dependencies {

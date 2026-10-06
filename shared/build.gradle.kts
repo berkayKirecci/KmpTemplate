@@ -25,6 +25,7 @@ kotlin {
             implementation(projects.core.designsystem)
             implementation(projects.core.storage)
             implementation(projects.core.ads)
+            implementation(projects.core.platform)
             implementation(projects.core.navigation)
 
             // Feature
