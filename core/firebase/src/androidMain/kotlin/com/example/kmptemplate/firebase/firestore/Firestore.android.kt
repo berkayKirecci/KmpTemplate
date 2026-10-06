@@ -1,4 +1,4 @@
-package com.example.kmptemplate.firebase
+package com.example.kmptemplate.firebase.firestore
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore

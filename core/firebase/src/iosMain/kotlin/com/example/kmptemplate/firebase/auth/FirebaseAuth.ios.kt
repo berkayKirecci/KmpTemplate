@@ -1,6 +1,6 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
-package com.example.kmptemplate.auth
+package com.example.kmptemplate.firebase.auth
 
 import swiftPMImport.com.example.kmptemplate.core.firebase.FIRAuth
 import kotlinx.coroutines.suspendCancellableCoroutine

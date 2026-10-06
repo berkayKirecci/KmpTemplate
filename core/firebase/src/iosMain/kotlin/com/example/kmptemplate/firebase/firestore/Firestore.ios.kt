@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package com.example.kmptemplate.firebase
+package com.example.kmptemplate.firebase.firestore
 
 import swiftPMImport.com.example.kmptemplate.core.firebase.FIRDocumentSnapshot
 import swiftPMImport.com.example.kmptemplate.core.firebase.FIRFieldValue

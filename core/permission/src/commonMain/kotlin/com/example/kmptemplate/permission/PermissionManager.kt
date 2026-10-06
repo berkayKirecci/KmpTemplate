@@ -1,4 +1,4 @@
-package com.example.kmptemplate
+package com.example.kmptemplate.permission
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

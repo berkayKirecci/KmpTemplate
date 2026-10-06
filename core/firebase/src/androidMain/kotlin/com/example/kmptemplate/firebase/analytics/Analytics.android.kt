@@ -1,4 +1,4 @@
-package com.example.kmptemplate.analytics
+package com.example.kmptemplate.firebase.analytics
 
 import android.os.Bundle
 import com.google.firebase.Firebase

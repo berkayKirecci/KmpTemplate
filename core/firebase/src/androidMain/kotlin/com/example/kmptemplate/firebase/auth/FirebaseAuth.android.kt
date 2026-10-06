@@ -1,4 +1,4 @@
-package com.example.kmptemplate.auth
+package com.example.kmptemplate.firebase.auth
 
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume

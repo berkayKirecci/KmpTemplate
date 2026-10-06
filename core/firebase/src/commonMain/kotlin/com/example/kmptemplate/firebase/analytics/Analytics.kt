@@ -1,4 +1,4 @@
-package com.example.kmptemplate.analytics
+package com.example.kmptemplate.firebase.analytics
 
 expect class Analytics() {
     fun logEvent(name: String, params: Map<String, String> = emptyMap())

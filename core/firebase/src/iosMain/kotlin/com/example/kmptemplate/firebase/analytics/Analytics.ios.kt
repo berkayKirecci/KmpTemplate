@@ -1,6 +1,6 @@
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
-package com.example.kmptemplate.analytics
+package com.example.kmptemplate.firebase.analytics
 
 import swiftPMImport.com.example.kmptemplate.core.firebase.FIRAnalytics
 
