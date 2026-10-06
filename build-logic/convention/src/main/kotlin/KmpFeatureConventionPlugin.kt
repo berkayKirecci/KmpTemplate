@@ -17,10 +17,11 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
                 freeCompilerArgs.add("-Xexplicit-backing-fields")
             }
             sourceSets.getByName("commonMain").dependencies {
-                // Core
+                // Core — only what every feature genuinely needs. A feature that wants
+                // core:network or core:ads declares it itself, so no feature links the
+                // ads SDK or the HTTP stack just by existing.
+                implementation(target.project(":core:base"))
                 implementation(target.project(":core:designsystem"))
-                implementation(target.project(":core:network"))
-                implementation(target.project(":core:ads"))
                 implementation(target.project(":core:navigation"))
 
                 // Serialization
