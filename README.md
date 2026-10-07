@@ -19,6 +19,8 @@ UI, and platform-specific implementations behind `expect`/`actual`.
 | Local Storage | DataStore Preferences |
 | Ads | Google Mobile Ads (Play Services on Android, SwiftPM on iOS) |
 | Snackbar / Messages | CrossMessages |
+| Logging | Own `expect`/`actual` wrapper in `core:base` |
+| Crash reporting | Firebase Crashlytics (opt-in, see below) |
 | iOS native deps | SwiftPM import (`swiftPMDependencies`) — no CocoaPods |
 | Build Logic | Gradle convention plugins in `build-logic` |
 
@@ -89,7 +91,7 @@ KmpTemplate/
 │   ├── navigation/               # Navigation3 graph, Navigator, routes
 │   ├── ads/                      # Banner & interstitial ads
 │   ├── platform/                 # Share sheet, store review prompt
-│   ├── firebase/                 # Analytics, Auth, Firestore  (opt-in)
+│   ├── firebase/                 # Analytics, Auth, Firestore, Crashlytics
 │   └── permission/               # Runtime permissions via moko  (opt-in)
 │
 └── feature/
@@ -107,6 +109,7 @@ iosApp      ──► Shared.framework, built from :shared
 
 :shared ──► :core:network  :core:designsystem  :core:storage
             :core:ads      :core:platform      :core:navigation
+            :core:firebase
             :feature:post  :feature:detail
 
 :feature:post    ──► :core:base, :core:designsystem, :core:navigation   (via convention plugin)
@@ -131,11 +134,11 @@ every :core:* ──► :core:base
 
 ### Not wired into the app
 
-`core:firebase` and `core:permission` are **opt-in scaffolding**. They compile and are included in
-the build, but no module depends on them and they are not registered in `appModule`. Add a
-dependency and register their Koin modules when you need them. `core:firebase` additionally needs
-`GoogleService-Info.plist` plus `FirebaseApp.configure()` on iOS, and
-`./gradlew :core:firebase:integrateLinkagePackage` so Xcode links the Firebase SwiftPM products.
+`core:permission` is **opt-in scaffolding**: it compiles and is built, but no module depends on it
+and it is not registered in `appModule`. Add a dependency when you need it.
+
+`core:firebase` *is* wired in, but is inert until you supply Firebase config. See
+[Crash reporting](#crash-reporting).
 
 ---
 
@@ -154,6 +157,9 @@ No module dependencies. Base interfaces and delegates shared by all layers:
 - `BaseUiEvent` — sealed UI events (e.g. `ShowError`)
 - `UiEventHelper` / `UiEventHelperDelegate` — shared flow for emitting UI events
 - `NetworkHelper` / `NetworkHelperDelegate` — loading state plus `safeCollect` / `safeCall`
+- `AppConfig` — per-environment values, supplied by the platform entry point
+- `AppError` / `AppErrorAware` — error categories the UI localizes
+- `Log` / `LogSink` — multiplatform logger with pluggable extra destinations
 
 Exposes `kotlinx-coroutines-core`, `kotlinx-serialization-json` and `koin-core` as `api`.
 
@@ -190,10 +196,11 @@ OS integration that is not advertising, kept separate so reaching it does not pu
 - `AppShareManager` — system share sheet
 - `ReviewManager` — in-app store review prompt
 
-### `core:firebase` *(opt-in)*
-`Analytics`, `FirebaseAuth`, `Firestore` with `expect`/`actual` per platform, and `FirebaseModule`.
-iOS bindings come from the Firebase SwiftPM package; Firestore's Objective-C Clang module is
-`FirebaseFirestoreInternal`, which is why the module lists `importedClangModules` explicitly.
+### `core:firebase`
+`Analytics`, `FirebaseAuth`, `Firestore`, `CrashReporter` with `expect`/`actual` per platform, and
+`FirebaseModule`. iOS bindings come from the Firebase SwiftPM package; Firestore's Objective-C
+Clang module is `FirebaseFirestoreInternal`, which is why the module lists `importedClangModules`
+explicitly.
 
 ### `core:permission` *(opt-in)*
 `PermissionManager` wrapping moko-permissions for runtime permission requests.
@@ -218,6 +225,56 @@ Applies `kmptemplate.android.application`. Contains `MainActivity`, which hosts 
 Xcode project. A "Compile Kotlin Framework" build phase runs
 `:shared:embedAndSignAppleFrameworkForXcode`, and `KotlinMultiplatformLinkedPackage` links the
 SwiftPM dependencies into the app.
+
+---
+
+## Build environments
+
+Three environments, selected per platform. Product flavors only exist on `androidApp` because
+AGP's `KotlinMultiplatformAndroidLibraryExtension` supports neither `productFlavors` nor
+`buildTypes`, so each platform builds an `AppConfig` (`core:base`) and injects it through Koin.
+
+| | Android | iOS |
+|---|---|---|
+| Selection | product flavor `dev` / `staging` / `prod` | build configuration `Debug` / `Staging` / `Release` |
+| Source of values | `buildConfigField` in `AndroidApplicationConventionPlugin` | `iosApp/Configuration/{Dev,Staging,Prod}.xcconfig` |
+| Reaches Kotlin via | `BuildConfig` → `AndroidAppConfig` | `Info.plist` → `IosAppConfig` (`NSBundle`) |
+| App id | `.dev` / `.staging` suffix | `PRODUCT_BUNDLE_IDENTIFIER` suffix |
+
+```shell
+./gradlew :androidApp:assembleDevDebug
+./gradlew :androidApp:assembleProdRelease
+xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Staging build
+```
+
+`logHttpBodies` is true for dev and staging and **false for prod**, so release builds never write
+request or response payloads to the device log.
+
+Two xcconfig gotchas worth knowing before editing those files:
+
+- `//` starts a comment, so a literal `https://` must be escaped as `https:/$()/`.
+- Kotlin's `embedAndSign` infers debug/release from the configuration *name*, so any
+  configuration not named exactly `Debug` or `Release` must set `KOTLIN_FRAMEWORK_BUILD_TYPE`.
+
+---
+
+## Crash reporting
+
+`core:firebase` provides a `CrashReporter`, and `App()` registers it as a `LogSink` so `Log.w` and
+`Log.e` become crash breadcrumbs.
+
+**It is inert until you add your own Firebase config**, and the build stays green without it:
+
+- The `google-services` and `firebase-crashlytics` Gradle plugins are applied **only** when
+  `androidApp/google-services.json` exists. Without it the build logs that it skipped them.
+- The iOS dSYM upload build phase exits early unless `iosApp/iosApp/GoogleService-Info.plist`
+  exists.
+- `CrashReporter.isAvailable` is false and every method is a no-op when Firebase did not
+  initialise.
+
+To enable it: drop `google-services.json` into `androidApp/`, drop `GoogleService-Info.plist` into
+`iosApp/iosApp/`, call `FirebaseApp.configure()` from `iOSApp.swift`, then run
+`./gradlew :core:firebase:integrateLinkagePackage` and re-resolve packages in Xcode.
 
 ---
 
@@ -271,4 +328,8 @@ open iosApp/iosApp.xcodeproj     # then run from Xcode
 ## Not included
 
 This is a structural template, not a finished app. It currently has **no tests**, no CI workflow,
-and no static analysis or formatting configuration. Add them to suit your project.
+no static analysis or formatting configuration, and no dependency-update automation. Add them to
+suit your project.
+
+Crash reporting is wired but inert until you supply Firebase config — see
+[Crash reporting](#crash-reporting).

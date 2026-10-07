@@ -15,6 +15,20 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         apply(plugin = "org.jetbrains.kotlin.plugin.compose")
         apply(plugin = "org.jetbrains.compose")
 
+        // The google-services plugin fails the build when google-services.json is missing, and
+        // the Crashlytics plugin is useless without it. Applying them only when the file exists
+        // keeps the template building out of the box; both activate once you add your Firebase
+        // config. CrashReporter degrades to a no-op in the meantime.
+        if (rootProject.file("androidApp/google-services.json").exists()) {
+            apply(plugin = "com.google.gms.google-services")
+            apply(plugin = "com.google.firebase.crashlytics")
+        } else {
+            logger.lifecycle(
+                "androidApp/google-services.json not found - Firebase plugins skipped, " +
+                    "crash reporting disabled."
+            )
+        }
+
         // Read through providers so the file is an explicitly declared configuration
         // input rather than relying on Gradle instrumenting the raw file read.
         val localProps = Properties().also { props ->

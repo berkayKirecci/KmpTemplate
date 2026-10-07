@@ -13,13 +13,15 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(path: "subpackages/_core_ads")
+    .package(path: "subpackages/_core_ads"),
+    .package(path: "subpackages/_core_firebase")
   ],
   targets: [
     .target(
       name: "KotlinMultiplatformLinkedPackage",
       dependencies: [
-        .product(name: "_core_ads", package: "_core_ads")
+        .product(name: "_core_ads", package: "_core_ads"),
+        .product(name: "_core_firebase", package: "_core_firebase")
       ]
     )
   ]

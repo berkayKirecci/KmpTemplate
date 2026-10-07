@@ -23,11 +23,13 @@ kotlin {
                 product("FirebaseAnalytics"),
                 product("FirebaseAuth"),
                 product("FirebaseFirestore"),
+                product("FirebaseCrashlytics"),
             ),
             importedClangModules = listOf(
                 "FirebaseCore",
                 "FirebaseAnalytics",
                 "FirebaseAuth",
+                "FirebaseCrashlytics",
                 // Firestore ships as a binary xcframework whose ObjC Clang module is named
                 // FirebaseFirestoreInternal, not FirebaseFirestore.
                 "FirebaseFirestoreInternal",
@@ -44,6 +46,7 @@ kotlin {
             implementation(libs.firebase.firestore)
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.auth)
+            implementation(libs.firebase.crashlytics)
         }
     }
 }

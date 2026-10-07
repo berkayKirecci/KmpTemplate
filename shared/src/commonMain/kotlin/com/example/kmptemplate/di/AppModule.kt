@@ -2,6 +2,7 @@ package com.example.kmptemplate.di
 
 import com.example.kmptemplate.ads.di.adModule
 import com.example.kmptemplate.detail.di.detailModule
+import com.example.kmptemplate.firebase.di.firebaseModule
 import com.example.kmptemplate.navigation.navigationModule
 import com.example.kmptemplate.network.di.networkModule
 import com.example.kmptemplate.post.di.postModule
@@ -16,7 +17,8 @@ val appModule = module {
             postModule,
             storageModule,
             navigationModule,
-            adModule
+            adModule,
+            firebaseModule
         )
     )
 }

@@ -8,6 +8,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.example.kmptemplate.ads.AdManager
 import com.example.kmptemplate.base.AppConfig
+import com.example.kmptemplate.base.Log
+import com.example.kmptemplate.firebase.crashlytics.CrashReporter
+import com.example.kmptemplate.firebase.crashlytics.asLogSink
 import com.example.kmptemplate.designsystem.theme.TemplateTheme
 import com.example.kmptemplate.di.appModule
 import com.example.kmptemplate.navigation.Navigation
@@ -25,7 +28,10 @@ fun App(appConfig: AppConfig) {
         modules(appModule, module { single { appConfig } })
     }) {
         val adManager = getKoin().get<AdManager>()
+        val crashReporter = getKoin().get<CrashReporter>()
         LaunchedEffect(Unit) {
+            // Warnings and errors become crash breadcrumbs. No-ops until Firebase is configured.
+            if (crashReporter.isAvailable) Log.addSink(crashReporter.asLogSink())
             withContext(Dispatchers.IO) {
                 adManager.initAds()
             }

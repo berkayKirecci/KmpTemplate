@@ -82,6 +82,7 @@
 				508E59D9A29FC512F7B5A4F7 /* Sources */,
 				25B594EF471E143CB83CF34D /* Frameworks */,
 				25CADE1E0DBBB797981DA36D /* Resources */,
+				C7A1B2D3E4F5061728394A5B /* [Firebase] Upload Crashlytics dSYMs */,
 			);
 			buildRules = (
 			);
@@ -164,6 +165,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
+		};
+		C7A1B2D3E4F5061728394A5B /* [Firebase] Upload Crashlytics dSYMs */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Resources/DWARF/$(PRODUCT_NAME)",
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "[Firebase] Upload Crashlytics dSYMs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Inert until GoogleService-Info.plist is added and Firebase resolves via SwiftPM.\nRUN=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nif [ ! -f \"$SRCROOT/iosApp/GoogleService-Info.plist\" ]; then\n  echo \"note: GoogleService-Info.plist not found - skipping Crashlytics dSYM upload.\"\n  exit 0\nfi\nif [ ! -f \"$RUN\" ]; then\n  echo \"warning: Crashlytics run script not found at $RUN - skipping dSYM upload.\"\n  exit 0\nfi\n\"$RUN\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -25,6 +25,7 @@ kotlin {
             implementation(projects.core.storage)
             implementation(projects.core.ads)
             implementation(projects.core.platform)
+            implementation(projects.core.firebase)
             implementation(projects.core.navigation)
 
             // Feature

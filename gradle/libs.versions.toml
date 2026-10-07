@@ -23,6 +23,8 @@ nav3-lifecycle = "2.11.0"
 ktor = "3.6.0"
 playServicesAds = "25.5.0"
 firebase-bom = "34.19.0"
+google-services = "4.5.0"
+firebase-crashlytics-plugin = "3.0.8"
 permissions = "0.20.1"
 playReview = "2.0.2"
 material-icons = "1.7.3"
@@ -70,6 +72,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 permissions = { module = "dev.icerock.moko:permissions", version.ref = "permissions" }
 permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissions" }
 permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "permissions" }
@@ -83,3 +86,5 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 koin = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
