@@ -15,9 +15,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         apply(plugin = "org.jetbrains.kotlin.plugin.compose")
         apply(plugin = "org.jetbrains.compose")
 
+        // Read through providers so the file is an explicitly declared configuration
+        // input rather than relying on Gradle instrumenting the raw file read.
         val localProps = Properties().also { props ->
-            val f = rootProject.file("local.properties")
-            if (f.exists()) f.inputStream().use(props::load)
+            providers
+                .fileContents(rootProject.layout.projectDirectory.file("local.properties"))
+                .asText.orNull
+                ?.let { props.load(it.reader()) }
         }
 
         extensions.configure<ApplicationExtension> {

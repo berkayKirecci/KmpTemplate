@@ -14,12 +14,12 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         apply(plugin = "io.insert-koin.compiler.plugin")
 
         val segments = target.path.removePrefix(":").split(":")
-        val namespace = "$APPLICATION_ID.${segments.joinToString(".")}"
+        val namespace = "${target.applicationId}.${segments.joinToString(".")}"
         val frameworkName = segments.joinToString("") { it.replaceFirstChar(Char::uppercaseChar) }
 
         // The swiftPMImport cinterop namespace is derived from the Gradle group, so every
         // KMP module needs it set consistently for SwiftPM import to resolve.
-        target.group = APPLICATION_ID
+        target.group = target.applicationId
 
         extensions.configure<KotlinMultiplatformExtension> {
             jvmToolchain(11)

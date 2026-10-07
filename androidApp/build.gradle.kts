@@ -2,10 +2,12 @@ plugins {
     id("kmptemplate.android.application")
 }
 
+val appId = providers.gradleProperty("kmptemplate.applicationId").get()
+
 android {
-    namespace = "com.example.kmptemplate"
+    namespace = appId
     defaultConfig {
-        applicationId = "com.example.kmptemplate"
+        applicationId = appId
         versionCode = 1
         versionName = "1.0"
     }
