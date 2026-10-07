@@ -68,7 +68,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         extensions.configure<KotlinAndroidProjectExtension> {
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_11)
-                freeCompilerArgs.add("-Xskip-prerelease-check")
             }
         }
 

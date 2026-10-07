@@ -6,9 +6,6 @@ plugins {
 }
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xskip-prerelease-check")
-    }
     android {
         androidResources {
             enable = true
