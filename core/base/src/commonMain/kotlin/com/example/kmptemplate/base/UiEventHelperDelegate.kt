@@ -1,16 +1,21 @@
 package com.example.kmptemplate.base
 
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 class UiEventHelperDelegate : UiEventHelper {
 
-    private val mutableEvent = MutableSharedFlow<BaseUiEvent>()
-    override val uiEvent: SharedFlow<BaseUiEvent> = mutableEvent.asSharedFlow()
+    /**
+     * A buffered Channel rather than a MutableSharedFlow: a SharedFlow with no replay drops
+     * anything emitted while nothing is collecting, and view models load in `init` - long
+     * before the Composable subscribes - so load errors were never shown.
+     */
+    private val events = Channel<BaseUiEvent>(Channel.BUFFERED)
+
+    override val uiEvent: Flow<BaseUiEvent> = events.receiveAsFlow()
 
     override suspend fun emitEvent(event: BaseUiEvent) {
-        mutableEvent.emit(event)
+        events.send(event)
     }
 }
-

@@ -24,7 +24,7 @@ class NetworkHelperDelegate(
         this.onStart { mutableState.value = true }
             .catch {
                 mutableState.value = false
-                emitEvent(BaseUiEvent.ShowError(it.message.orEmpty()))
+                emitEvent(it.toErrorEvent())
             }
             .flowOn(Dispatchers.IO)
             .collectLatest {
@@ -40,7 +40,19 @@ class NetworkHelperDelegate(
             onSuccess(result)
         } catch (e: Exception) {
             mutableState.value = false
-            emitEvent(BaseUiEvent.ShowError(e.message.orEmpty()))
+            emitEvent(e.toErrorEvent())
         }
     }
+}
+
+/**
+ * core:base cannot see core:network, so the category travels on the [AppErrorAware] marker
+ * rather than being matched on a concrete exception type.
+ */
+private fun Throwable.toErrorEvent(): BaseUiEvent.ShowError {
+    val aware = this as? AppErrorAware
+    return BaseUiEvent.ShowError(
+        error = aware?.appError ?: AppError.UNKNOWN,
+        serverMessage = aware?.serverMessage,
+    )
 }

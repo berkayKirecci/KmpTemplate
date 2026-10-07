@@ -1,0 +1,5 @@
+<resources>
+    <string name="error_connection">Could not reach the server. Check your connection and try again.</string>
+    <string name="error_server">Something went wrong on our side. Please try again.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="error_connection">Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="error_server">Bir sorun oluştu. Lütfen tekrar deneyin.</string>
+    <string name="error_unknown">Bir şeyler ters gitti. Lütfen tekrar deneyin.</string>
+</resources>

@@ -14,11 +14,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.kmptemplate.base.AppError
 import com.example.kmptemplate.base.BaseUiEvent
 import com.example.kmptemplate.base.NetworkHelper
 import com.example.kmptemplate.base.UiEventHelper
+import com.example.kmptemplate.designsystem.resources.Res
+import com.example.kmptemplate.designsystem.resources.error_connection
+import com.example.kmptemplate.designsystem.resources.error_server
+import com.example.kmptemplate.designsystem.resources.error_unknown
 import io.github.berkaykirecci.crossmessages.snackbar.CrossSnackbarHost
 import io.github.berkaykirecci.crossmessages.snackbar.rememberCrossSnackbarHostState
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
 
 @Composable
 fun BaseScreen(
@@ -50,7 +57,12 @@ fun BaseScreen(
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             uiEventHelper.uiEvent.collect { event ->
                 when (event) {
-                    is BaseUiEvent.ShowError -> snackbarState.error(event.errorMessage)
+                    is BaseUiEvent.ShowError ->
+                        // Prefer the server's own wording when it sent one; otherwise
+                        // resolve the category to a localized string.
+                        snackbarState.error(
+                            event.serverMessage ?: getString(event.error.stringResource)
+                        )
                 }
             }
         }
@@ -62,3 +74,10 @@ fun BaseScreen(
         content()
     }
 }
+
+private val AppError.stringResource: StringResource
+    get() = when (this) {
+        AppError.CONNECTION -> Res.string.error_connection
+        AppError.SERVER -> Res.string.error_server
+        AppError.UNKNOWN -> Res.string.error_unknown
+    }

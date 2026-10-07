@@ -1,5 +1,7 @@
 package com.example.kmptemplate.network
 
+import com.example.kmptemplate.base.AppError
+import com.example.kmptemplate.base.AppErrorAware
 import com.example.kmptemplate.network.model.BaseResponse
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
@@ -11,7 +13,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
-class NetworkException(message: String, cause: Throwable? = null) : Exception(message, cause)
+class NetworkException(
+    override val appError: AppError,
+    override val serverMessage: String? = null,
+    cause: Throwable? = null,
+) : Exception(serverMessage ?: appError.name, cause), AppErrorAware
 
 suspend inline fun <reified T : BaseResponse> safeRequest(
     crossinline suspendCall: suspend () -> HttpResponse
@@ -22,16 +28,16 @@ suspend inline fun <reified T : BaseResponse> safeRequest(
         val body = httpResponse.body<T>()
         if (statusCode in 200..299) {
             if (body.isError == true) {
-                throw NetworkException(body.errorMessage ?: "Unknown error")
+                throw NetworkException(AppError.SERVER, body.errorMessage)
             }
             body
         } else {
-            throw NetworkException(body.errorMessage ?: "HTTP $statusCode")
+            throw NetworkException(AppError.SERVER, body.errorMessage ?: "HTTP $statusCode")
         }
     } catch (e: NetworkException) {
         throw e
     } catch (e: Exception) {
-        throw NetworkException("Connection error", e)
+        throw NetworkException(AppError.CONNECTION, cause = e)
     }
 }
 
@@ -43,13 +49,13 @@ inline fun <reified T : BaseResponse> safeFlowRequest(
     val body = httpResponse.body<T>()
     if (statusCode in 200..299) {
         if (body.isError == true) {
-            throw NetworkException(body.errorMessage ?: "Unknown error")
+            throw NetworkException(AppError.SERVER, body.errorMessage)
         } else {
             emit(body)
         }
     } else {
-        throw NetworkException(body.errorMessage ?: "HTTP $statusCode")
+        throw NetworkException(AppError.SERVER, body.errorMessage ?: "HTTP $statusCode")
     }
 }.catch { cause ->
-    throw NetworkException("Connection error", cause)
+    throw NetworkException(AppError.CONNECTION, cause = cause)
 }.flowOn(Dispatchers.IO)

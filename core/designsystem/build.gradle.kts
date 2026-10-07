@@ -26,3 +26,8 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.example.kmptemplate.designsystem.resources"
+}
