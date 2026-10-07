@@ -1,5 +1,6 @@
 package com.example.kmptemplate.network
 
+import com.example.kmptemplate.base.Log
 import com.example.kmptemplate.network.model.BaseRequest
 import com.example.kmptemplate.network.model.BaseResponse
 import io.ktor.client.HttpClient
@@ -70,9 +71,10 @@ internal fun createHttpClient() = HttpClient {
         level = LogLevel.BODY
         logger = object : Logger {
             override fun log(message: String) {
-                println("[HttpClient] $message")
+                Log.d(TAG, message)
             }
         }
     }
 }
 
+private const val TAG = "HttpClient"
