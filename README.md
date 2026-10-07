@@ -47,10 +47,17 @@ Minimums: Android `minSdk 24` (compile 37 / target 36), iOS **16.0**.
    kmptemplate.applicationId=com.example.kmptemplate
    ```
 
-2. **Replace the AdMob unit ids.** `core/ads/src/{androidMain,iosMain}/.../AdConstants.*.kt`
-   currently contain real publisher ids. Swap them for
-   [Google's test ids](https://developers.google.com/admob/android/test-ads) before running, and
-   inject your own at build time rather than committing them.
+2. **Set your AdMob ids before publishing.** The template ships Google's demo ad unit ids, which
+   always serve test ads and cannot generate invalid traffic. Replace all four before release:
+
+   | Where | What |
+   |---|---|
+   | `core/ads/src/androidMain/.../AdConstants.android.kt` | banner + interstitial unit ids |
+   | `core/ads/src/iosMain/.../AdConstants.ios.kt` | banner + interstitial unit ids |
+   | `androidApp/src/main/AndroidManifest.xml` | `com.google.android.gms.ads.APPLICATION_ID` |
+   | `iosApp/iosApp/Info.plist` | `GADApplicationIdentifier` |
+
+   The app id and the unit ids must belong to the same AdMob publisher, or ads fail to serve.
 
 3. **iOS native dependencies** resolve through SwiftPM on Gradle sync. If Xcode reports a missing
    package, run `./gradlew :core:ads:integrateLinkagePackage` and reopen the project.
