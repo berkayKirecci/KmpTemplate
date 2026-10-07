@@ -9,7 +9,7 @@ internal val Project.versionCatalog: VersionCatalog
     get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 internal fun VersionCatalog.version(alias: String): Int =
-    findVersion(alias).get().toString().toInt()
+    findVersion(alias).get().requiredVersion.toInt()
 
 internal fun VersionCatalog.library(alias: String) =
     findLibrary(alias).get()

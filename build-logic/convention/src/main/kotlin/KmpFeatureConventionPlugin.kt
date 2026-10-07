@@ -13,9 +13,6 @@ class KmpFeatureConventionPlugin : Plugin<Project> {
         apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
         extensions.configure<KotlinMultiplatformExtension> {
-            compilerOptions {
-                freeCompilerArgs.add("-Xexplicit-backing-fields")
-            }
             sourceSets.getByName("commonMain").dependencies {
                 // Core — only what every feature genuinely needs. A feature that wants
                 // core:network or core:ads declares it itself, so no feature links the

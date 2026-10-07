@@ -34,9 +34,12 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
                 freeCompilerArgs.add("-Xexpect-actual-classes")
             }
 
-            sourceSets.configureEach {
-                languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
-            }
+            // Only Apple source sets can resolve the cinterop marker; opting in everywhere
+            // makes the compiler warn that it is unresolved on JVM/Android compilations.
+            sourceSets.matching { it.name.startsWith("ios") || it.name.startsWith("apple") || it.name.startsWith("native") }
+                .configureEach {
+                    languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                }
 
             listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
                 iosTarget.binaries.framework {
