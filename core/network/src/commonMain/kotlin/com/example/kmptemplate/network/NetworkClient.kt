@@ -1,5 +1,6 @@
 package com.example.kmptemplate.network
 
+import com.example.kmptemplate.base.AppConfig
 import com.example.kmptemplate.base.Log
 import com.example.kmptemplate.network.model.BaseRequest
 import com.example.kmptemplate.network.model.BaseResponse
@@ -44,12 +45,12 @@ class NetworkClient internal constructor(private val httpClient: HttpClient) {
     }
 }
 
-internal fun createNetworkClient() = NetworkClient(createHttpClient())
+internal fun createNetworkClient(config: AppConfig) = NetworkClient(createHttpClient(config))
 
-internal fun createHttpClient() = HttpClient {
+internal fun createHttpClient(config: AppConfig) = HttpClient {
     defaultRequest {
         url {
-            takeFrom("https://dummyjson.com/")
+            takeFrom(config.apiBaseUrl)
         }
     }
 
@@ -68,7 +69,9 @@ internal fun createHttpClient() = HttpClient {
     }
 
     install(Logging) {
-        level = LogLevel.BODY
+        // Bodies are only logged where the environment opts in; a release build must not
+        // write request and response payloads to the device log.
+        level = if (config.logHttpBodies) LogLevel.BODY else LogLevel.NONE
         logger = object : Logger {
             override fun log(message: String) {
                 Log.d(TAG, message)

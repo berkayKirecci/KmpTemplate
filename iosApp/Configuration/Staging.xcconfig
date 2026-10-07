@@ -1,0 +1,9 @@
+#include "Config.xcconfig"
+
+KOTLIN_FRAMEWORK_BUILD_TYPE = debug
+
+APP_ENVIRONMENT = staging
+API_BASE_URL = https:/$()/dummyjson.com/
+LOG_HTTP_BODIES = YES
+
+PRODUCT_BUNDLE_IDENTIFIER = com.example.kmptemplate.KmpTemplate.staging$(TEAM_ID)

@@ -1,0 +1,8 @@
+#include "Config.xcconfig"
+
+KOTLIN_FRAMEWORK_BUILD_TYPE = release
+
+APP_ENVIRONMENT = prod
+API_BASE_URL = https:/$()/dummyjson.com/
+// Never log request or response bodies in production.
+LOG_HTTP_BODIES = NO

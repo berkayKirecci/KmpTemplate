@@ -17,7 +17,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // Core
+            // Core — api because App(appConfig: AppConfig) exposes a core:base type in its
+            // signature, so consumers must see it.
+            api(projects.core.base)
             implementation(projects.core.network)
             implementation(projects.core.designsystem)
             implementation(projects.core.storage)

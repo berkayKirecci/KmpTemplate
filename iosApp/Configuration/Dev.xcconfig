@@ -1,0 +1,12 @@
+#include "Config.xcconfig"
+
+// Kotlin's embedAndSign task infers debug/release from the Xcode configuration name.
+// Any configuration not literally named Debug or Release must declare which it is.
+KOTLIN_FRAMEWORK_BUILD_TYPE = debug
+
+APP_ENVIRONMENT = dev
+// '//' begins a comment in xcconfig, so the scheme separator is escaped with $().
+API_BASE_URL = https:/$()/dummyjson.com/
+LOG_HTTP_BODIES = YES
+
+PRODUCT_BUNDLE_IDENTIFIER = com.example.kmptemplate.KmpTemplate.dev$(TEAM_ID)

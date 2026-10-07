@@ -6,5 +6,11 @@
 	<true/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<key>AppEnvironment</key>
+	<string>$(APP_ENVIRONMENT)</string>
+	<key>ApiBaseUrl</key>
+	<string>$(API_BASE_URL)</string>
+	<key>LogHttpBodies</key>
+	<string>$(LOG_HTTP_BODIES)</string>
 </dict>
 </plist>
